@@ -1,6 +1,14 @@
 <script setup lang="ts">
   // Create an array of color values
   const allColors: Color[] = [
+    "matter",
+    "buildit",
+    "lucide",
+    "grove",
+    "cyberpunk",
+    "bubblegum",
+    "midnight",
+    "solardark",
     "zinc",
     "rose",
     "blue",
@@ -13,6 +21,7 @@
     "neutral",
     "yellow",
     "violet",
+    "brutalism",
   ];
   const { theme, radius } = useConfigStore();
 

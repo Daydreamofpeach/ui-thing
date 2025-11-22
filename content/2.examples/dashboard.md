@@ -4,5 +4,4 @@ description: A simple dashboard created with the components from the library. It
 layout: examples
 ---
 
-::Page-Ex-Dashboard
-::
+<DashboardExampleRegistry />

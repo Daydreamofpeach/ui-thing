@@ -1,0 +1,144 @@
+/**
+ * Shared Node Container Styles
+ * Used by all canvas node components for consistency
+ * Now uses Tailwind theme classnames for theming
+ */
+
+/* Base Node Container - Theme classes applied via Tailwind */
+.node-container {
+	/* Base styles are now in the component using Tailwind classes */
+	/* bg-card, border-border, text-card-foreground, etc. */
+}
+
+.node-container > :deep(.node-header) {
+	position: relative;
+}
+
+/* Node Icon - Circular and positioned outside */
+/* Styles now applied via Tailwind classes in component */
+.node-container .node-icon-wrapper {
+	/* Base styles: bg-card, border-primary, shadow-lg, etc. */
+}
+
+.node-container .node-icon-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	padding: 8px;
+}
+
+.node-container .node-icon-wrapper svg,
+.node-container .node-icon-wrapper i {
+	width: 30px;
+	height: 30px;
+}
+
+.node-container:hover {
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Selected State - using theme ring */
+.node-container.selected {
+	/* Ring styles applied via Tailwind ring utilities in component */
+}
+
+/* In Configuration Panel - Enhanced Shadow */
+.node-container.in-config-panel {
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Collapsed State */
+.node-container.collapsed {
+	/* Styles applied via Tailwind classes in component */
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.node-container.collapsed .node-icon-wrapper {
+	top: -26px;
+	width: 52px;
+	height: 52px;
+}
+
+.node-container.collapsed > :deep(.node-header) {
+	padding: 0.35rem 0.75rem;
+	border-radius: 0.5rem;
+}
+
+.node-container.collapsed > :deep(.node-header) .header-title {
+	font-size: 1rem;
+}
+
+.node-container.collapsed > :deep(.node-header) .action-button {
+	transform: scale(0.85);
+}
+
+.node-container.collapsed > :deep(.node-header) .action-button:hover {
+	transform: scale(0.95);
+}
+
+.node-container.collapsed .node-content,
+.node-container.collapsed .node-footer {
+	display: none !important;
+}
+
+/* Node Content Area */
+.node-container .node-content {
+	flex: 1;
+	padding: 1rem;
+	overflow: auto;
+	min-height: 0;
+}
+
+/* Scrollbar Styling - using theme colors */
+.node-container .node-content::-webkit-scrollbar {
+	width: 0.5rem;
+}
+
+.node-container .node-content::-webkit-scrollbar-track {
+	background-color: hsl(var(--muted) / 0.2);
+	border-radius: 0.25rem;
+}
+
+.node-container .node-content::-webkit-scrollbar-thumb {
+	background-color: hsl(var(--primary) / 0.4);
+	border-radius: 0.25rem;
+}
+
+.node-container .node-content::-webkit-scrollbar-thumb:hover {
+	background-color: hsl(var(--primary) / 0.6);
+}
+
+/* Node Footer */
+.node-container .node-footer {
+	padding: 0.75rem 1rem;
+	border-top: 1px solid hsl(var(--border) / 0.5);
+	background-color: hsl(var(--muted) / 0.2);
+	flex-shrink: 0;
+}
+
+.node-container .node-overlay-slot {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index: 12;
+}
+
+.node-container .node-overlay-slot > * {
+	pointer-events: auto;
+}
+
+/* Connection Handles */
+.node-container .connection-handle {
+	border: 2px solid hsl(var(--background));
+	border-radius: 50%;
+	opacity: 0.8;
+	transition: all 0.2s ease;
+}
+
+.node-container .connection-handle:hover {
+	opacity: 1;
+	transform: scale(1.3);
+}
+

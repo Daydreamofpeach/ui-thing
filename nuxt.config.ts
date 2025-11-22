@@ -1,211 +1,308 @@
 import tailwindcss from "@tailwindcss/vite";
-
-import * as SEO from "./app/utils/seo";
+import { resolve } from "pathe";
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devServer: {
+    port: 3000
+  },
+  devtools: { 
+    enabled: true, // Enable devtools for development
+    timeline: {
+      enabled: true
+    },
+    vscode: {
+      enabled: true
+    },
+    // Enable additional devtools features
+    componentInspector: true,
+    viteInspect: true
+  },
+  // Use static generation for Tauri - no SSR, no loops
+  ssr: false,
+  
   vite: {
     plugins: [tailwindcss()],
-    build: { sourcemap: false },
+    resolve: {
+      alias: {
+        "@canvas": resolve("./app/components/canvas"),
+        "@composables": resolve("./app/composables"),
+        "#ui": resolve("./app/components/ui"),
+        "@utils": resolve("./app/utils"),
+        "@app": resolve("./app"),
+        "@components": resolve("./app/components"),
+        "@childNodes": resolve("./app/components/canvas/nodes/childNodes"),
+        "@nodes": resolve("./app/components/canvas/nodes"),
+      }
+    },
+    server: {
+      proxy: {
+        "/bapi": {
+          target: "https://api.dev.builditbuilder.com",
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path: string) => path.replace(/^\/bapi/, "")
+        },
+        // Proxy for React Grab API to avoid CORS issues
+        "/react-grab-api": {
+          target: "https://react-grab.com",
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path: string) => path.replace(/^\/react-grab-api/, ""),
+          configure: (proxy, _options) => {
+            proxy.on('proxyReq', (proxyReq, req, _res) => {
+              // Add CORS headers for React Grab requests
+              proxyReq.setHeader('Origin', 'https://react-grab.com');
+            });
+          }
+        }
+      }
+    },
+    build: { 
+      sourcemap: process.env.NODE_ENV === 'development',
+      rollupOptions: {
+        output: {
+          manualChunks: undefined // Disable manual chunking
+        }
+      }
+    },
     optimizeDeps: {
       include: [
-        "vue-use-active-scroll",
-        "date-fns",
-        "@unovis/ts",
-        "vee-validate",
-        "@vee-validate/yup",
-        "zod",
-        "v-calendar",
-        "lodash-es",
-        "vaul-vue",
+        "vue",
+        "vue-router",
+        "@vueuse/core",
         "tailwind-merge",
         "tailwind-variants",
-        "vue-tippy",
-        "motion-v",
-        "@tanstack/vue-table",
-        "vue-sonner",
-        "reka-ui",
+        "quill",
+        "vue-quill-editor",
+        "monaco-editor",
+        "debug",
       ],
+      esbuildOptions: {
+        mainFields: ["module", "main"],
+        format: "esm",
+        plugins: [],
+      },
+      // Force esbuild to transform CommonJS modules
+      force: false,
+    },
+    define: {
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+    },
+    ssr: {
+      noExternal: ["quill", "vue-quill-editor"],
     },
   },
-  experimental: { payloadExtraction: true },
+
+  // Minimal modules for Tauri
   modules: [
     "@vueuse/nuxt",
-    "reka-ui/nuxt",
-    "@yuta-inoue-ph/nuxt-vcalendar",
-    "@vee-validate/nuxt",
-    "nuxt-llms",
     "@nuxtjs/color-mode",
-    "@nuxt/eslint",
-    "nuxt-swiper",
-    "v-wave/nuxt",
-    "@nuxt/image",
-    "@nuxt/icon",
-    "@nuxt/fonts",
-    "@vite-pwa/nuxt",
-    "nuxt-og-image",
-    "vue-sonner/nuxt",
-    "motion-v/nuxt",
     "@nuxt/content",
-    "@morev/vue-transitions/nuxt",
+    "@nuxt/image", // Required for NuxtImg components
+    "@nuxt/icon", // Required for Icon components
+    "reka-ui/nuxt", // Required for UI components
+    "@nuxt/eslint", // Required for some components
+    "@vee-validate/nuxt", // Required for useForm
+    "vue-sonner/nuxt", // Required for useSonner
+    "@nuxtjs/turnstile", // Required for Cloudflare Turnstile
   ],
-
-  css: [
-    "~/assets/css/tippy.css",
-    "~/assets/css/theme.css",
-    "~/assets/css/quill.css",
-    "~/assets/css/full-calendar.css",
-    "~/assets/css/tailwind.css",
-  ],
-  llms: {
-    domain: process.env.PUBLIC_URL || "https://uithing.com",
-    description: SEO.SITE_DESCRIPTION,
-    title: SEO.SITE_TITLE,
-    full: {
-      title: "Complete Documentation for UI Thing",
-      description: "The complete documentation including all content",
-    },
-  },
-
-  vcalendar: {
-    calendarOptions: {
-      masks: {
-        weekdays: "WW",
-      },
-    },
-  },
-  icon: {
-    clientBundle: { scan: true, sizeLimitKb: 0 },
-    mode: "svg",
-    class: "shrink-0",
-    fetchTimeout: 2000,
-    serverBundle: "local",
-  },
 
   imports: {
     // Add tv and VariantProps to the set of auto imported modules
     imports: [
       { from: "tailwind-variants", name: "tv" },
       { from: "tailwind-variants", name: "VariantProps", type: true },
-      { from: "vue-sonner", name: "toast", as: "useSonner" },
+      { from: "vue-sonner", name: "toast", as: "useToast" },
     ],
   },
 
-  app: {
-    rootAttrs: {
-      "vaul-drawer-wrapper": "",
-      class: "bg-background",
-    },
-    head: {
-      title: SEO.SITE_TITLE,
-      titleTemplate: `%s | ${SEO.SITE_NAME}`,
-      script: [
-        // Add pdfmake scripts for DataTables.net export buttons
-        {
-          src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
-          defer: true,
-        },
-        {
-          src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
-          defer: true,
-        },
-      ],
-    },
+  css: [
+    "~/assets/css/theme.css",
+    "~/assets/css/tailwind.css",
+    "~/assets/css/tippy.css",
+    "~/assets/css/quill.css",
+  ],
+
+  turnstile: {
+    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+    addValidateEndpoint: false,
+  },
+
+  colorMode: { 
+    classSuffix: "", 
+    fallback: "dark", 
+    preference: "system" 
   },
 
   content: {
-    build: {
-      markdown: {
-        toc: { depth: 4, searchDepth: 4 },
-        highlight: {
-          langs: [
-            "json",
-            "js",
-            "ts",
-            "css",
-            "html",
-            "md",
-            "yaml",
-            "vue",
-            "vue-html",
-            "bash",
-            "sh",
-            "typescript",
-            "javascript",
-          ],
-          theme: {
-            default: "github-light",
-            dark: "github-dark",
-          },
-        },
-      },
-    },
+    // Content configuration for static generation
   },
 
+  // VeeValidate configuration
+  veeValidate: {
+    // Auto-imports: useForm, useField, etc.
+    autoImports: true,
+  },
+
+  // Sonner auto-imports are handled by the module
+
+  // Runtime config for environment variables
+  runtimeConfig: {
+    // Private keys (only available on server-side)
+    tursoDatabaseUrl: process.env.TURSO_DATABASE_URL,
+    tursoAuthToken: process.env.TURSO_AUTH_TOKEN,
+    githubClientId: process.env.GITHUB_CLIENT_ID,
+    githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
+    googleFontsApiKey: process.env.GOOGLE_FONTS_API_KEY,
+    
+    // Public keys (exposed to client-side)
+    public: {
+      githubClientId: process.env.GITHUB_CLIENT_ID,
+      // Always use absolute API URL in production (including Tauri builds)
+      // Use proxy only in development web builds
+      buttApiUrl: process.env.NODE_ENV === 'development' && !process.env.TAURI_PLATFORM 
+        ? "/bapi" 
+        : "https://api.dev.builditbuilder.com",
+      serviceId: process.env.SERVICE_ID || "izgF1l9wZPXdTqkgW_-VuTRQWNgKYMzkZWMvkIFPa5A",
+    }
+  },
+
+  app: {
+    head: {
+      title: "BuilditUi",
+      titleTemplate: `%s | BuilditUi`,
+    },
+    baseURL: "/",
+    buildAssetsDir: "/_nuxt/",
+  },
+
+  // Route rules for static generation
   routeRules: {
-    "/getting-started": { redirect: "/getting-started/introduction" },
-    "/magic": { redirect: "/magic/getting-started" },
-    "/goodies": { redirect: "/goodies/border-beam" },
-    "/components": { redirect: "/components/accordion" },
-    "/examples": { redirect: "/examples/cards" },
-    "/blocks": { redirect: "/blocks/app-empty-state" },
-    "/block-renderer": { static: true },
+    '/blocks/**': { prerender: true },
+    '/**': { prerender: true }
   },
-  colorMode: { classSuffix: "", fallback: "dark", preference: "system" },
 
-  pwa: {
-    includeAssets: ["favicon.ico", "robots.txt", "icons/apple-touch-icon.png"],
-    manifest: {
-      background_color: "#ffffff",
-      description: SEO.SITE_DESCRIPTION,
-      icons: [
-        {
-          src: "/icons/pwa-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-          purpose: "any",
-        },
-        {
-          src: "/icons/pwa-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any",
-        },
-        {
-          src: "/icons/pwa-maskable-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-          purpose: "maskable",
-        },
-        {
-          src: "/icons/pwa-maskable-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "maskable",
-        },
+  // Disable experimental features
+  experimental: { 
+    payloadExtraction: false,
+  },
+
+  // Optimize for desktop app with static generation
+  nitro: {
+    preset: "static",
+    minify: true,
+    prerender: {
+      routes: [
+        "/",
+        "/blocks",
+        "/components",
+        "/examples",
+        "/goodies",
+        "/getting-started",
+        "/magic",
+        "/forms",
+        "/apex-charts",
+        "/cards-showcase",
+        "/blocks/hero",
+        "/blocks/pricing",
+        "/blocks/sidebar",
+        "/blocks/signup",
+        "/blocks/socialproof",
+        "/blocks/team",
+        "/blocks/headersection",
+        "/blocks/login",
+        "/blocks/metric",
+        "/blocks/navigation",
+        "/blocks/newsletter",
+        "/blocks/cta",
+        "/blocks/error",
+        "/blocks/faq",
+        "/blocks/features",
+        "/blocks/footer",
+        "/blocks/forgot-reset-password",
+        "/blocks/blogpage",
+        "/blocks/blogpostcard",
+        "/blocks/blogsection",
+        "/blocks/blogsubscribe",
+        "/blocks/career",
+        "/blocks/contactheader",
+        "/blocks/app-empty-state",
+        "/blocks/app-header",
+        "/blocks/app-sidebar",
+        "/blocks/app-stats",
+        "/blocks/banner",
+        "/blocks/testimony"
       ],
-      lang: SEO.SITE_LANG,
-      name: SEO.SITE_NAME,
-      short_name: SEO.SITE_NAME,
-      theme_color: SEO.SITE_THEME_COLOR,
-      display: "standalone",
+      crawlLinks: true,
+      failOnError: false,
+      ignore: [
+        "/api/**",
+        "/_nuxt/**",
+        "/__nuxt_content/**"
+      ],
+      // Ensure all content is statically generated
     },
   },
 
-  site: {
-    url: SEO.SITE_URL,
-    name: SEO.SITE_NAME,
-    description: SEO.SITE_DESCRIPTION,
-    defaultLocale: SEO.SITE_LANG,
-    identity: { type: "Person" },
-    indexable: true,
-    twitter: SEO.SITE_TWITTER_CREATOR,
+  // Disable features that cause issues
+  typescript: {
+    strict: false,
+    typeCheck: false,
   },
 
-  ogImage: {
-    defaults: {
-      alt: SEO.SITE_NAME,
-    },
+  // Build optimization
+  build: {
+    transpile: ["vue-sonner"],
   },
-  compatibilityDate: "2025-06-30",
+
+  // Ensure all block and example components are available
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/Ui',
+      '~/components/Ui/Card',
+      '~/components/Ui/Alert',
+      '~/components/Ui/Form',
+      '~/components/Ui/Dialog',
+      '~/components/Ui/Drawer',
+      '~/components/Ui/Popover',
+      '~/components/Ui/Tooltip',
+      '~/components/Ui/DropdownMenu',
+      '~/components/Ui/ContextMenu',
+      '~/components/Ui/Select',
+      '~/components/Ui/Tabs',
+      '~/components/Ui/Accordion',
+      '~/components/content/Block',
+      '~/components/content/Block/Login',
+      '~/components/content/Block/Hero',
+      '~/components/content/Block/Pricing',
+      '~/components/content/Block/Team',
+      '~/components/content/Block/CTA',
+      '~/components/content/Block/SignUp',
+      '~/components/content/Block/Footer',
+      '~/components/content/Block/Testimony',
+      '~/components/content/Block/SocialProof',
+      '~/components/content/Block/Newsletter',
+      '~/components/content/Block/Metric',
+      '~/components/content/Block/Navigation',
+      '~/components/content/Block/Banner',
+      '~/components/content/Block/Feature',
+      '~/components/content/Block/FAQ',
+      '~/components/content/Block/Error',
+      '~/components/content/Block/Blog',
+      '~/components/content/Block/App',
+      '~/components/content/Block/Contact',
+      '~/components/content/Block/Career',
+      '~/components/content/Block/Chart',
+      '~/components/content/Block/HeaderSection',
+      '~/components/content/Block/ForgotPassword',
+      '~/components/content/Block/ResetPassword',
+      '~/components/content/Block/Sidebar',
+      '~/components/content/Example',
+      '~/components/Examples'
+    ],
+    // Force global registration of all components
+    global: true
+  },
 });

@@ -3,7 +3,7 @@
     <template #header>
       <UiCardHeader class="flex items-start justify-between gap-3">
         <div class="flex flex-col gap-1">
-          <UiCardTitle>UI Thing</UiCardTitle>
+          <UiCardTitle>buildit</UiCardTitle>
           <UiCardDescription>
             Beautifully designed components built with Radix Ui and Tailwind CSS.
           </UiCardDescription>

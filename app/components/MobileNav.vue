@@ -14,6 +14,12 @@
 
         <div class="relative h-[calc(100dvh-230px)] overflow-y-auto pr-2 pl-6">
           <DocsNav :links="navigation" @clicked="mobileNavState = false" />
+          
+          <!-- Font Selector for Mobile -->
+          <div class="mt-6 px-2">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Font Selection</h3>
+            <FontSelector />
+          </div>
         </div>
 
         <UiDrawerClose class="absolute top-3 right-4 h-7 w-7" as-child>

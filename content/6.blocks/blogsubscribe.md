@@ -5,8 +5,8 @@ description: On this page you will find different ways in which you can style th
 
 ## Style One
 
-:BlockShowcase{blockPath="Blog/Subscribe/BlockBlogSubscribe1" component="BlockBlogSubscribe1" containerClass="container py-10" iframeHeight="550px"}
+<BlockBlogSubscribe1 class="container py-10" style="height: 550px" />
 
 ## Style Two
 
-:BlockShowcase{blockPath="Blog/Subscribe/BlockBlogSubscribe2" component="BlockBlogSubscribe2" containerClass="container py-10" iframeHeight="550px"}
+<BlockBlogSubscribe2 class="container py-10" style="height: 550px" />

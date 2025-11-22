@@ -1078,7 +1078,7 @@ I just made them work with my setup.
             Help us improve
           </UiDialogTitle>
           <UiDialogDescription class="sr-only">
-            Rate your experience with UI Thing
+            Rate your experience with buildit
           </UiDialogDescription>
         </UiDialogHeader>
         <div class="px-6 py-4">
@@ -1117,7 +1117,7 @@ I just made them work with my setup.
               <UiVeeTextarea
                 id="feedback"
                 label="Why did you give this rating?"
-                placeholder="How can we improve UI Thing?"
+                placeholder="How can we improve buildit?"
                 aria-label="Send feedback"
               />
             </div>
@@ -1263,7 +1263,7 @@ I just made them work with my setup.
             <Icon name="lucide:user" mode="svg" />
           </UiFancyIcon>
           <UiDialogHeader class="mb-6">
-            <UiDialogTitle class="sm:text-center">Sign up UI Thing</UiDialogTitle>
+            <UiDialogTitle class="sm:text-center">Sign up buildit</UiDialogTitle>
             <UiDialogDescription class="sm:text-center">
               We just need a few details to get you started.
             </UiDialogDescription>
@@ -2268,7 +2268,7 @@ This implementation requires the use of [Maska](https://beholdr.github.io/maska/
   const stepContent = [
     {
       img: "https://ui-thing.behonbaker.com/cover.png",
-      title: "Welcome to UI Thing",
+      title: "Welcome to buildit",
       description:
         "Discover a powerful collection of components designed to enhance your development workflow.",
     },
@@ -2287,7 +2287,7 @@ This implementation requires the use of [Maska](https://beholdr.github.io/maska/
       img: "https://images.unsplash.com/photo-1579208570378-8c970854bc23?q=80&w=3022&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Get Support",
       description:
-        "Access our extensive documentation and community resources to make the most of UI Thing.",
+        "Access our extensive documentation and community resources to make the most of buildit.",
     },
   ];
   const step = ref(1);

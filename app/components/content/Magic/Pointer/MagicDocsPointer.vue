@@ -87,16 +87,11 @@
         </span>
       </UiCardContent>
       <MagicPointer>
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="12" cy="12" r="10" class="fill-purple-500" />
-          <circle cx="12" cy="12" r="5" class="fill-white" />
-        </svg>
+        <img
+          src="/WhiteSVGLOGO.svg"
+          alt="Orange SVG Logo"
+          class="w-24 h-24"
+        />
       </MagicPointer>
     </UiCard>
 

@@ -35,7 +35,7 @@ npm i @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/timegrid @fu
 
 ### Update CSS
 
-In order to make the calendar match the UI Thing theme, I had to create the `full-calendar.css` file and import it in the `nuxt.config.ts` file.
+In order to make the calendar match the buildittheme, I had to create the `full-calendar.css` file and import it in the `nuxt.config.ts` file.
 
 <!-- automd:file src="../../app/assets/css/full-calendar.css" code lang="css" -->
 

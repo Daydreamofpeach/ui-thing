@@ -1,0 +1,29 @@
+{
+  "version": "v1",
+  "os": {
+    "platform": "",
+    "version": "",
+    "arch": "",
+    "locale": ""
+  },
+  "environment": {},
+  "personalPaths": {
+    "home": "~",
+    "documents": "~\\Documents",
+    "desktop": "~\\Desktop",
+    "downloads": "~\\Downloads"
+  },
+  "detectedTools": {
+    "node": "",
+    "python": "",
+    "rust": "",
+    "php": "",
+    "dotnet": "",
+    "java": "",
+    "chocolatey": "",
+    "packageManagers": [],
+    "ides": []
+  },
+  "createdAt": "2025-11-05T14:13:10.588Z",
+  "lastUpdated": "2025-11-05T14:13:10.589Z"
+}

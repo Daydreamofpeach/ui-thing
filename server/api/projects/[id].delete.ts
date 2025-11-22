@@ -1,0 +1,53 @@
+import { deleteProject } from '~/lib/projects'
+import { initializeDatabase } from '~/lib/database'
+
+export default defineEventHandler(async (event) => {
+  try {
+    const id = Number(getRouterParam(event, 'id'))
+
+    if (!id || isNaN(id)) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Valid project ID is required'
+      })
+    }
+
+    // Try to initialize database, but don't fail if it's already initialized
+    try {
+      await initializeDatabase()
+    } catch {
+      // Database may already be initialized, continue
+    }
+
+    const result = await deleteProject(id)
+
+    if (!result.wasFound) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'Project not found'
+      })
+    }
+
+    if (!result.success) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to delete project'
+      })
+    }
+
+    return {
+      success: true,
+      message: 'Project deleted successfully'
+    }
+  } catch (error: any) {
+    // Return more specific error messages
+    if (error.statusCode) {
+      throw error
+    }
+
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message || 'Failed to delete project'
+    })
+  }
+})

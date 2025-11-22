@@ -26,7 +26,7 @@
 
       <div class="absolute right-6 bottom-6">
         <!-- eslint-disable-next-line vue/html-self-closing -->
-        <img src="/icon.png" alt="UI Thing Icon" class="h-10 w-10 rounded-md object-contain" />
+        <img src="/icon.png" alt="buildit Icon" class="h-10 w-10 rounded-md object-contain" />
       </div>
     </div>
   </div>

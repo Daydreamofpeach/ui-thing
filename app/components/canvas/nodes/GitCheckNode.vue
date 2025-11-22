@@ -1,0 +1,131 @@
+<template>
+	<BaseNodeTemplate
+		:custom-node-props="_props.customNodeProps"
+		:update-node-data="updateNodeData"
+		icon-image="/icons/apps/git.svg"
+		:title="_props.customNodeProps.data?.label || 'GIT CHECK'"
+		:title-color="themeColor"
+		:theme-color="themeColor"
+		:status-label="statusLabel"
+		:status-color="statusColor"
+		:show-edit-button="false"
+		:show-close-button="true"
+		:show-default-header="true"
+		:background-color="undefined"
+		:border-color="borderColor"
+		:min-width="350"
+		:min-height="280"
+		:default-collapsed="false"
+		:node-class="gitCheckNodeClass"
+		@close="handleClose"
+	>
+		<div class="node-content-wrapper">
+			<AppStatusCard
+				:config="gitConfig"
+				:auto-check="true"
+				:show-install-guide="false"
+				@app-detected="handleAppDetected"
+				@app-installed="handleAppInstalled"
+				@app-error="handleAppError"
+			/>
+		</div>
+	</BaseNodeTemplate>
+</template>
+
+<script setup lang="ts">
+	import { computed } from "vue";
+	import BaseNodeTemplate from "./templates/BaseNodeTemplate.vue";
+	import AppStatusCard from "~/components/canvas/shared/AppStatusCard.vue";
+	import { appConfigs, useAppDetection } from "../composables/useAppDetection";
+
+	interface Props {
+		customNodeProps: {
+			id: string
+			data: {
+				label?: string
+				gitInstalled?: boolean
+				gitVersion?: string
+			}
+			selected?: boolean
+		}
+		updateNodeData?: (nodeId: string, key: string, value: any) => void
+	}
+
+	const _props = defineProps<Props>();
+
+	const emit = defineEmits([
+		"detectGit",
+		"installGit",
+		"gitError",
+		"close"
+	]);
+
+	const gitConfig = appConfigs.git;
+	const { status } = useAppDetection(gitConfig);
+
+	const themeColor = computed(() => {
+		if (status.value.installed) return "#22c55e";
+		return "#F05032";
+	});
+
+	const borderColor = computed(() => {
+		if (status.value.installed) return "rgba(34, 197, 94, 0.5)";
+		return "rgba(240, 80, 50, 0.3)";
+	});
+
+	const statusLabel = computed(() => {
+		if (status.value.loading) return "Checking...";
+		if (status.value.installed) return `Installed (${status.value.version})`;
+		return "Not Installed";
+	});
+
+	const statusColor = computed(() => {
+		if (status.value.loading) return "#f59e0b";
+		if (status.value.installed) return "#22c55e";
+		return "#F05032";
+	});
+
+	const gitCheckNodeClass = computed(() => {
+		return `git-check-node ${status.value.installed ? 'git-found' : ''}`;
+	});
+
+	const handleClose = () => {
+		emit("close", _props.customNodeProps.id);
+	};
+
+	const handleAppDetected = (data: any) => {
+		emit("detectGit", data);
+	};
+
+	const handleAppInstalled = (data: any) => {
+		emit("installGit", data);
+	};
+
+	const handleAppError = (data: any) => {
+		emit("gitError", data);
+	};
+</script>
+
+<style scoped>
+.node-content-wrapper {
+	padding: 8px;
+}
+
+.git-check-node.git-found :deep(.base-node-template) {
+	border-color: rgba(34, 197, 94, 0.8);
+	animation: gitPulse 2s ease-in-out infinite;
+	box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+@keyframes gitPulse {
+	0%, 100% {
+		border-color: rgba(34, 197, 94, 0.8);
+		box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+	}
+	50% {
+		border-color: rgba(34, 197, 94, 1);
+		box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+	}
+}
+</style>
+

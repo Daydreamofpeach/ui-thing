@@ -1,4 +1,4 @@
-export const COMPANY_NAME = "UI Thing";
+export const COMPANY_NAME = "buildit";
 /**
  * Utility function to return Tailwind CSS classes.
  */

@@ -1,0 +1,48 @@
+[package]
+name = "buildit"
+version = "0.1.0"
+description = "buildit - A beautiful component library and design system"
+authors = ["denthat + daydreamofpeach"]
+license = "MIT"
+repository = "https://github.com/yourusername/ui-thing"
+edition = "2021"
+rust-version = "1.77.2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies.tauri-build]
+version = "2.2.0"
+features = []
+
+[dependencies]
+tauri-plugin-shell = "2.2.1"
+tauri-plugin-notification = "2.2.2"
+tauri-plugin-os = "2.2.1"
+tauri-plugin-fs = "2.2.1"
+tauri-plugin-store = "2.2.0"
+tauri-plugin-log = "2.7.1"
+serde_json = "1"
+tauri-plugin-persisted-scope = "2"
+tauri-plugin-http = "2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+log = "0.4"
+tauri-plugin-localhost = "2"
+
+[dependencies.tauri]
+version = "2.5.1"
+features = [
+  "tray-icon",
+  "unstable"
+]
+
+[dependencies.serde]
+version = "1"
+features = ["derive"]

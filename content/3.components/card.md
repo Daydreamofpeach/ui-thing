@@ -29,7 +29,7 @@ npx ui-thing@latest add card
     <form>
       <UiCard
         class="w-[360px] max-w-sm"
-        title="UI Thing"
+        title="buildit"
         description="Enter your email and password to get started."
       >
         <template #content>

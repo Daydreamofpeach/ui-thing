@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { Motion } from "motion-v";
+  import { AnimatePresence, Motion } from "motion-v";
 
   defineProps<{
     code?: string;

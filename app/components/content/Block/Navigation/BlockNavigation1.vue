@@ -11,7 +11,7 @@
             title="Company Logo"
             class="h-6 object-contain lg:h-8"
           />
-          <span class="font-semibold lg:text-lg">UI Thing</span>
+          <span class="font-semibold lg:text-lg">buildit</span>
         </NuxtLink>
         <UiNavigationMenu as="nav" class="hidden items-center justify-start gap-8 lg:flex">
           <UiNavigationMenuList class="gap-2">

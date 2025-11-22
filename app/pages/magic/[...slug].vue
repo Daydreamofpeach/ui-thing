@@ -1,92 +1,68 @@
 <template>
-  <div
-    :class="[
-      toc && toc.links && toc.links.length && !isBlocksPage
-        ? 'xl:grid-cols-[1fr_250px]'
-        : 'xl:grid-cols-1',
-    ]"
-    class="xl:grid xl:gap-5"
-  >
-    <!-- Page content -->
-    <div
-      class="mx-auto prose prose-base max-w-none min-w-0 py-5 xl:container dark:prose-invert prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:decoration-wavy prose-a:underline-offset-2 prose-a:hover:text-primary prose-pre:text-base"
-    >
-      <DocsHeader v-if="page" :page />
-      <ContentRenderer v-if="page" :value="page" />
-      <DocsFooter collection="magic" />
+  <div>
+    <component
+      :is="dynamicComponent"
+      v-if="dynamicComponent"
+      :class="[route?.query?.containerClass]"
+      class="size-full"
+    />
+    <div v-else class="flex h-dvh w-full items-center justify-center">
+      <Icon name="lucide:loader-circle" class="animate-spin" />
     </div>
-    <!-- Table of contents for current page -->
-    <ClientOnly>
-      <aside
-        v-if="toc && toc.links && toc.links.length && !isBlocksPage"
-        class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] border-l xl:block"
-      >
-        <UiScrollArea type="auto" class="h-full">
-          <div class="flex flex-col gap-5 p-5">
-            <p class="text-sm font-semibold">On this page</p>
-            <DocsToclink :set-active="setActive" :active-id="activeId" :links="toc.links" />
-            <p class="text-sm font-semibold">Extra stuff</p>
-            <DocsExtraStuff />
-          </div>
-        </UiScrollArea>
-      </aside>
-    </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { kebabCase } from "lodash-es";
-  import { useActiveScroll } from "vue-use-active-scroll";
-  import type { Targets } from "vue-use-active-scroll";
+  import { startCase, trim } from "lodash-es";
 
   definePageMeta({ layout: "magic" });
   const route = useRoute();
 
-  const { data: page } = await useAsyncData(kebabCase(route.path), () => {
-    return queryCollection("magic").path(route.path).first() || "page";
-  });
-  if (!page.value) {
-    throw createError({ statusCode: 404, statusMessage: "Page not found", fatal: true });
-  }
-  const toc = computed(() => {
-    if (!page?.value) return;
-    return page.value?.body?.toc;
-  });
-
-  const targets = computed(() =>
-    toc.value?.links?.flatMap(({ id, children = [] }: any) => [
-      id,
-      ...children.map(({ id }: { id: string }) => id),
-    ])
-  );
-
-  const { activeId, setActive } = useActiveScroll(targets as Targets, {
-    replaceHash: true,
-    overlayHeight: 80,
-  });
-
-  // Check if a page starts with `/blocks/` The sidenave will be removed if this is true
-  const isBlocksPage = computed(() => route.path.startsWith("/blocks/"));
-
   useSeoMeta({
-    title: page?.value?.title,
+    title: trim(startCase((route?.params?.slug?.[0] as string) || "Magic")),
     titleTemplate: `%s - Magic UI | ${SITE_NAME}`,
-    description: page?.value?.description,
+    description: "Magic UI components for Nuxt.",
     keywords: SITE_KEYWORDS.join(", "),
-    ogTitle: page?.value?.title,
-    ogDescription: page?.value?.description,
-    twitterTitle: page?.value?.title,
-    twitterDescription: page?.value?.description,
+    ogTitle: trim(startCase((route?.params?.slug?.[0] as string) || "Magic")),
+    ogDescription: "Magic UI components for Nuxt.",
+    twitterTitle: trim(startCase((route?.params?.slug?.[0] as string) || "Magic")),
+    twitterDescription: "Magic UI components for Nuxt.",
     twitterCard: "summary_large_image",
-    ogUrl: `${SITE_URL}${route.path}`,
   });
 
-  if (import.meta.server) {
-    defineOgImageComponent("Magic", {
-      title: page?.value?.title,
-      description: page?.value?.description,
-    });
-  }
+  const dynamicComponent = shallowRef();
 
-  provide("page", page);
+  const loadComponent = async () => {
+    const slug = route.params.slug?.[0];
+    if (!slug) return;
+    
+    try {
+      // Map slug to component path
+      const componentMap: Record<string, string> = {
+        'pointer': 'Pointer/MagicDocsPointer',
+        'scroll-progress': 'ScrollProgress/MagicDocsScrollProgress',
+        'marquee': 'Marquee/MagicDocsMarquee',
+        'hero-video-dialog': 'HeroVideoDialog/MagicDocsHeroVideoDialog',
+        'safari': 'Safari/MagicDocsSafariSimple',
+        'android': 'Android/MagicDocsAndroid',
+        'iphone-15-pro': 'Iphone15Pro/MagicDocsIphone15Pro',
+      };
+      
+      const componentPath = componentMap[slug];
+      if (!componentPath) {
+        console.error("Component not found for slug:", slug);
+        return;
+      }
+      
+      const components = import.meta.glob("~/components/content/Magic/**/*.vue");
+      const match = components[`/components/content/Magic/${componentPath}.vue`];
+      if (!match) throw new Error("Component not found");
+      dynamicComponent.value = ((await match()) as { default: any }).default;
+    } catch (err) {
+      console.error("Error loading magic component:", err);
+    }
+  };
+
+  onMounted(loadComponent);
+  watch(() => route.fullPath, loadComponent);
 </script>

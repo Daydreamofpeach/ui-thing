@@ -12,7 +12,7 @@
             Help us improve
           </UiDialogTitle>
           <UiDialogDescription class="sr-only">
-            Rate your experience with UI Thing
+            Rate your experience with buildit
           </UiDialogDescription>
         </UiDialogHeader>
         <div class="px-6 py-4">
@@ -51,7 +51,7 @@
               <UiVeeTextarea
                 id="feedback"
                 label="Why did you give this rating?"
-                placeholder="How can we improve UI Thing?"
+                placeholder="How can we improve buildit?"
                 aria-label="Send feedback"
               />
             </div>

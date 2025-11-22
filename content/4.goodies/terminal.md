@@ -192,7 +192,7 @@ This consists of three components
 <UiTerminal>
   <UiTerminalTypingAnimation>
     <UiTerminalAnimatedSpan>Hello, world!</UiTerminalAnimatedSpan>
-    <UiTerminalTypingAnimation>UI Thing is awesome!</UiTerminalTypingAnimation>
+    <UiTerminalTypingAnimation>buildit is awesome!</UiTerminalTypingAnimation>
   </UiTerminalTypingAnimation>
 </UiTerminal>
 ```

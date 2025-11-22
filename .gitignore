@@ -237,3 +237,23 @@ $RECYCLE.BIN/
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 packages/cli/
+
+### Tauri ###
+# Tauri build output
+src-tauri/target/
+src-tauri/Cargo.lock
+
+# Tauri generated files
+src-tauri/dist/
+src-tauri/out/
+
+# OS-specific build artifacts
+*.app
+*.exe
+*.deb
+*.rpm
+*.AppImage
+*.dmg
+*.msi
+*.zip
+*.tar.gz

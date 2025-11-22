@@ -18,6 +18,95 @@
    *
    * It sets the default styles, colors, and other properties for the charts.
    */
+  // Helper function to get chart colors from CSS variables dynamically
+  // This function is called each time to get the current theme's chart colors
+  const getChartColors = (): string[] => {
+    if (typeof window === 'undefined') {
+      return ["#93c5fd", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af"];
+    }
+    
+    const oklchToHex = (oklch: string): string => {
+      // Handle oklch with optional alpha: oklch(L C H) or oklch(L C H / alpha)
+      const match = oklch.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*[\d.]+%?)?\)/);
+      if (!match) return '#000000';
+      
+      const L = parseFloat(match[1]);
+      const C = parseFloat(match[2]);
+      const H = parseFloat(match[3]) * (Math.PI / 180);
+      
+      const a = C * Math.cos(H);
+      const b_ok = C * Math.sin(H);
+      
+      const l_cbrt = L + 0.3963377774 * a + 0.2158037573 * b_ok;
+      const m_cbrt = L - 0.1055613458 * a - 0.0638541728 * b_ok;
+      const s_cbrt = L - 0.0894841775 * a - 1.2914855480 * b_ok;
+      
+      const l_ = l_cbrt * l_cbrt * l_cbrt;
+      const m_ = m_cbrt * m_cbrt * m_cbrt;
+      const s_ = s_cbrt * s_cbrt * s_cbrt;
+      
+      const rLinear = +4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_;
+      const gLinear = -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_;
+      const bLinear = -0.0041960863 * l_ - 0.7034186147 * m_ + 1.7076147010 * s_;
+      
+      const fromLinear = (c: number) => {
+        c = Math.max(0, Math.min(1, c));
+        return c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
+      };
+      
+      const r = Math.round(fromLinear(rLinear) * 255);
+      const g = Math.round(fromLinear(gLinear) * 255);
+      const b = Math.round(fromLinear(bLinear) * 255);
+      
+      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    };
+    
+    const fallbackColors = ["#93c5fd", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af"];
+    const chartColors: string[] = [];
+    
+    // Read from :root (where chart colors should be applied by applyCustomTheme)
+    for (let i = 1; i <= 5; i++) {
+      const cssVar = `--chart-${i}`;
+      const oklchValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(cssVar)
+        .trim();
+      
+      if (oklchValue) {
+        chartColors.push(oklchToHex(oklchValue));
+      } else {
+        chartColors.push(fallbackColors[i - 1] || "#93c5fd");
+      }
+    }
+    
+    return chartColors;
+  };
+  
+  // Function to update Apex chart colors dynamically
+  const updateApexChartColors = () => {
+    if (typeof window !== 'undefined' && window.Apex) {
+      window.Apex.colors = getChartColors();
+    }
+  };
+  
+  // Update colors on DOM ready and periodically to catch theme changes
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateApexChartColors);
+    } else {
+      updateApexChartColors();
+    }
+    
+    // Also update when theme class changes (for dark mode toggle)
+    const observer = new MutationObserver(() => {
+      updateApexChartColors();
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  }
+
   window.Apex = {
     chart: {
       animations: { enabled: true },
@@ -85,8 +174,8 @@
         },
       },
     },
-    // Hex values are best. If you need to convert your oklch values, use the `culori` package.
-    colors: ["#93c5fd", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af"],
+    // Use chart colors from CSS variables (chart-1 through chart-5)
+    colors: getChartColors(),
   };
 
   export type ApexChartProps = {
@@ -166,6 +255,8 @@
 </script>
 
 <script lang="ts" setup>
+  import { watch, onMounted } from 'vue';
+
   const props = withDefaults(defineProps<ApexChartProps>(), {
     series: () => [],
     type: "line",
@@ -203,6 +294,30 @@
   ]);
 
   const forwarded = useForwardPropsEmits(props, emits);
+
+  // Watch for chart color changes and update the chart
+  onMounted(() => {
+    // Update colors when component mounts
+    if (typeof window !== 'undefined' && window.Apex) {
+      window.Apex.colors = getChartColors();
+    }
+    
+    // Watch for CSS variable changes (when theme changes)
+    const observer = new MutationObserver(() => {
+      if (typeof window !== 'undefined' && window.Apex && chart.value) {
+        const newColors = getChartColors();
+        window.Apex.colors = newColors;
+        // Update the chart instance with new colors
+        chart.value?.updateOptions({ colors: newColors }, false, false);
+      }
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+      subtree: false,
+    });
+  });
 
   defineExpose({ chart });
 </script>

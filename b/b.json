@@ -1,0 +1,583 @@
+{
+  "version": "v1",
+  "setup": {
+    "name": "Setup >",
+    "all": {
+      "scripts": [
+        {
+          "name": "automd",
+          "command": "npx automd@latest --input **/*.md --watch",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "build",
+          "command": "NODE_OPTIONS=--max_old_space_size=12000 nuxt build",
+          "category": "build",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "build:cli",
+          "command": "cd cli && bun run build",
+          "category": "build",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "build:package",
+          "command": "bun run build:cli",
+          "category": "build",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "prepare:publish",
+          "command": "bun run scripts/prepare-publish.js",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "publish:package",
+          "command": "bun run prepare:publish && npm publish --access public",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "clean",
+          "command": "rm -rf .nuxt .data dist .output node_modules yarn.lock package-lock.json && npm cache clean --force && npm i && npm rebuild",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "dev",
+          "command": "nuxt dev --host",
+          "category": "dev",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "prepublishOnly",
+          "command": "npm run build:cli",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "format",
+          "command": "npx prettier --write .",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "generate",
+          "command": "nuxt generate",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "generate:components",
+          "command": "node scripts/create-components && npx prettier --write ./server/utils/comp.ts",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "postinstall",
+          "command": "nuxt prepare",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "lint",
+          "command": "eslint .",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "db:setup",
+          "command": "bun run scripts/setup-db.ts setup",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "db:seed",
+          "command": "bun run scripts/setup-db.ts seed",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "db:reset",
+          "command": "bun run scripts/setup-db.ts reset",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "db:check",
+          "command": "bun run scripts/check-db.ts",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "lint:fix",
+          "command": "eslint . --fix",
+          "category": "util",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "prepare",
+          "command": "husky",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "preview",
+          "command": "nuxt preview",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "tauri",
+          "command": "tauri",
+          "category": "other",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "tauri:dev",
+          "command": "tauri dev",
+          "category": "dev",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "tauri:build",
+          "command": "tauri build",
+          "category": "build",
+          "description": "",
+          "order": 0
+        },
+        {
+          "name": "tauri:preview",
+          "command": "tauri preview",
+          "category": "other",
+          "description": "",
+          "order": 0
+        }
+      ]
+    },
+    "windows": {
+      "actions": [
+        {
+          "name": "automd",
+          "command": "npx automd@latest --input **/*.md --watch",
+          "category": "other"
+        },
+        {
+          "name": "build",
+          "command": "NODE_OPTIONS=--max_old_space_size=12000 nuxt build",
+          "category": "build"
+        },
+        {
+          "name": "build:cli",
+          "command": "cd cli && bun run build",
+          "category": "build"
+        },
+        {
+          "name": "build:package",
+          "command": "bun run build:cli",
+          "category": "build"
+        },
+        {
+          "name": "prepare:publish",
+          "command": "bun run scripts/prepare-publish.js",
+          "category": "other"
+        },
+        {
+          "name": "publish:package",
+          "command": "bun run prepare:publish && npm publish --access public",
+          "category": "other"
+        },
+        {
+          "name": "clean",
+          "command": "rm -rf .nuxt .data dist .output node_modules yarn.lock package-lock.json && npm cache clean --force && npm i && npm rebuild",
+          "category": "util"
+        },
+        {
+          "name": "dev",
+          "command": "nuxt dev --host",
+          "category": "dev"
+        },
+        {
+          "name": "prepublishOnly",
+          "command": "npm run build:cli",
+          "category": "other"
+        },
+        {
+          "name": "format",
+          "command": "npx prettier --write .",
+          "category": "util"
+        },
+        {
+          "name": "generate",
+          "command": "nuxt generate",
+          "category": "other"
+        },
+        {
+          "name": "generate:components",
+          "command": "node scripts/create-components && npx prettier --write ./server/utils/comp.ts",
+          "category": "other"
+        },
+        {
+          "name": "postinstall",
+          "command": "nuxt prepare",
+          "category": "util"
+        },
+        {
+          "name": "lint",
+          "command": "eslint .",
+          "category": "util"
+        },
+        {
+          "name": "db:setup",
+          "command": "bun run scripts/setup-db.ts setup",
+          "category": "other"
+        },
+        {
+          "name": "db:seed",
+          "command": "bun run scripts/setup-db.ts seed",
+          "category": "other"
+        },
+        {
+          "name": "db:reset",
+          "command": "bun run scripts/setup-db.ts reset",
+          "category": "other"
+        },
+        {
+          "name": "db:check",
+          "command": "bun run scripts/check-db.ts",
+          "category": "util"
+        },
+        {
+          "name": "lint:fix",
+          "command": "eslint . --fix",
+          "category": "util"
+        },
+        {
+          "name": "prepare",
+          "command": "husky",
+          "category": "other"
+        },
+        {
+          "name": "preview",
+          "command": "nuxt preview",
+          "category": "other"
+        },
+        {
+          "name": "tauri",
+          "command": "tauri",
+          "category": "other"
+        },
+        {
+          "name": "tauri:dev",
+          "command": "tauri dev",
+          "category": "dev"
+        },
+        {
+          "name": "tauri:build",
+          "command": "tauri build",
+          "category": "build"
+        },
+        {
+          "name": "tauri:preview",
+          "command": "tauri preview",
+          "category": "other"
+        }
+      ]
+    },
+    "linux": {
+      "actions": [
+        {
+          "name": "automd",
+          "command": "npx automd@latest --input **/*.md --watch",
+          "category": "other"
+        },
+        {
+          "name": "build",
+          "command": "NODE_OPTIONS=--max_old_space_size=12000 nuxt build",
+          "category": "build"
+        },
+        {
+          "name": "build:cli",
+          "command": "cd cli && bun run build",
+          "category": "build"
+        },
+        {
+          "name": "build:package",
+          "command": "bun run build:cli",
+          "category": "build"
+        },
+        {
+          "name": "prepare:publish",
+          "command": "bun run scripts/prepare-publish.js",
+          "category": "other"
+        },
+        {
+          "name": "publish:package",
+          "command": "bun run prepare:publish && npm publish --access public",
+          "category": "other"
+        },
+        {
+          "name": "clean",
+          "command": "rm -rf .nuxt .data dist .output node_modules yarn.lock package-lock.json && npm cache clean --force && npm i && npm rebuild",
+          "category": "util"
+        },
+        {
+          "name": "dev",
+          "command": "nuxt dev --host",
+          "category": "dev"
+        },
+        {
+          "name": "prepublishOnly",
+          "command": "npm run build:cli",
+          "category": "other"
+        },
+        {
+          "name": "format",
+          "command": "npx prettier --write .",
+          "category": "util"
+        },
+        {
+          "name": "generate",
+          "command": "nuxt generate",
+          "category": "other"
+        },
+        {
+          "name": "generate:components",
+          "command": "node scripts/create-components && npx prettier --write ./server/utils/comp.ts",
+          "category": "other"
+        },
+        {
+          "name": "postinstall",
+          "command": "nuxt prepare",
+          "category": "util"
+        },
+        {
+          "name": "lint",
+          "command": "eslint .",
+          "category": "util"
+        },
+        {
+          "name": "db:setup",
+          "command": "bun run scripts/setup-db.ts setup",
+          "category": "other"
+        },
+        {
+          "name": "db:seed",
+          "command": "bun run scripts/setup-db.ts seed",
+          "category": "other"
+        },
+        {
+          "name": "db:reset",
+          "command": "bun run scripts/setup-db.ts reset",
+          "category": "other"
+        },
+        {
+          "name": "db:check",
+          "command": "bun run scripts/check-db.ts",
+          "category": "util"
+        },
+        {
+          "name": "lint:fix",
+          "command": "eslint . --fix",
+          "category": "util"
+        },
+        {
+          "name": "prepare",
+          "command": "husky",
+          "category": "other"
+        },
+        {
+          "name": "preview",
+          "command": "nuxt preview",
+          "category": "other"
+        },
+        {
+          "name": "tauri",
+          "command": "tauri",
+          "category": "other"
+        },
+        {
+          "name": "tauri:dev",
+          "command": "tauri dev",
+          "category": "dev"
+        },
+        {
+          "name": "tauri:build",
+          "command": "tauri build",
+          "category": "build"
+        },
+        {
+          "name": "tauri:preview",
+          "command": "tauri preview",
+          "category": "other"
+        }
+      ]
+    },
+    "mac": {
+      "actions": [
+        {
+          "name": "automd",
+          "command": "npx automd@latest --input **/*.md --watch",
+          "category": "other"
+        },
+        {
+          "name": "build",
+          "command": "NODE_OPTIONS=--max_old_space_size=12000 nuxt build",
+          "category": "build"
+        },
+        {
+          "name": "build:cli",
+          "command": "cd cli && bun run build",
+          "category": "build"
+        },
+        {
+          "name": "build:package",
+          "command": "bun run build:cli",
+          "category": "build"
+        },
+        {
+          "name": "prepare:publish",
+          "command": "bun run scripts/prepare-publish.js",
+          "category": "other"
+        },
+        {
+          "name": "publish:package",
+          "command": "bun run prepare:publish && npm publish --access public",
+          "category": "other"
+        },
+        {
+          "name": "clean",
+          "command": "rm -rf .nuxt .data dist .output node_modules yarn.lock package-lock.json && npm cache clean --force && npm i && npm rebuild",
+          "category": "util"
+        },
+        {
+          "name": "dev",
+          "command": "nuxt dev --host",
+          "category": "dev"
+        },
+        {
+          "name": "prepublishOnly",
+          "command": "npm run build:cli",
+          "category": "other"
+        },
+        {
+          "name": "format",
+          "command": "npx prettier --write .",
+          "category": "util"
+        },
+        {
+          "name": "generate",
+          "command": "nuxt generate",
+          "category": "other"
+        },
+        {
+          "name": "generate:components",
+          "command": "node scripts/create-components && npx prettier --write ./server/utils/comp.ts",
+          "category": "other"
+        },
+        {
+          "name": "postinstall",
+          "command": "nuxt prepare",
+          "category": "util"
+        },
+        {
+          "name": "lint",
+          "command": "eslint .",
+          "category": "util"
+        },
+        {
+          "name": "db:setup",
+          "command": "bun run scripts/setup-db.ts setup",
+          "category": "other"
+        },
+        {
+          "name": "db:seed",
+          "command": "bun run scripts/setup-db.ts seed",
+          "category": "other"
+        },
+        {
+          "name": "db:reset",
+          "command": "bun run scripts/setup-db.ts reset",
+          "category": "other"
+        },
+        {
+          "name": "db:check",
+          "command": "bun run scripts/check-db.ts",
+          "category": "util"
+        },
+        {
+          "name": "lint:fix",
+          "command": "eslint . --fix",
+          "category": "util"
+        },
+        {
+          "name": "prepare",
+          "command": "husky",
+          "category": "other"
+        },
+        {
+          "name": "preview",
+          "command": "nuxt preview",
+          "category": "other"
+        },
+        {
+          "name": "tauri",
+          "command": "tauri",
+          "category": "other"
+        },
+        {
+          "name": "tauri:dev",
+          "command": "tauri dev",
+          "category": "dev"
+        },
+        {
+          "name": "tauri:build",
+          "command": "tauri build",
+          "category": "build"
+        },
+        {
+          "name": "tauri:preview",
+          "command": "tauri preview",
+          "category": "other"
+        }
+      ]
+    }
+  },
+  "nodeCanvas": {
+    "timestamp": "2025-11-05T14:13:10.565Z",
+    "canvas": "node-workflow",
+    "nodes": [],
+    "edges": [],
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 1
+    }
+  }
+}

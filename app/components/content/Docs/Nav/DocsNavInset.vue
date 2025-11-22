@@ -42,7 +42,7 @@
             to="/components/nav"
           >
             <NuxtImg src="/icon.png" class="size-6 rounded sm:size-5" />
-            <span> UI Thing </span>
+            <span> buildit </span>
           </NuxtLink>
         </UiNavStart>
         <UiNavGap />

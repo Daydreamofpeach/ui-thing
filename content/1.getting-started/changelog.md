@@ -1,6 +1,6 @@
 ---
 title: Changelog
-description: See what has changed recently in UI Thing.
+description: See what has changed recently in buildit.
 ---
 
 ## February 27, 2025

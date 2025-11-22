@@ -29,8 +29,5 @@
     twitterDescription: page.value.description,
     twitterCard: "summary_large_image",
   });
-  defineOgImageComponent("UIThing", {
-    title: page.value?.title,
-    description: page.value?.description,
-  });
+  // Removed defineOgImageComponent for static builds
 </script>

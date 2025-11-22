@@ -44,7 +44,7 @@
     if (!isSupported.value) return;
     share({
       title: "Schema Visualizer",
-      text: "Check out this schema visualizer I found on UI Thing!",
+      text: "Check out this schema visualizer I found on buildit!",
       url: location.href,
     });
   };

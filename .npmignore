@@ -1,0 +1,65 @@
+# Development files
+.nuxt
+.output
+.data
+node_modules
+dist
+.vscode
+.idea
+
+# Content and documentation
+content/
+public/
+scripts/
+server/
+
+# Pages (not needed for package)
+app/pages/
+app/layouts/
+app/plugins/
+app/composables/
+app/assets/
+
+# Config files
+nuxt.config.ts
+tailwind.config.js
+tsconfig.json
+eslint.config.mjs
+commitlint.config.js
+
+# Git files
+.git
+.gitignore
+.github
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+*.test.ts
+*.spec.ts
+__tests__
+
+# Tauri
+src-tauri/
+
+# Lock files
+package-lock.json
+yarn.lock
+bun.lock
+
+# Misc
+*.md
+!README.md
+!LICENSE.md

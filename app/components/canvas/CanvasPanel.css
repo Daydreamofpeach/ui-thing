@@ -1,0 +1,696 @@
+/* Minimal host styling; full styles will be ported incrementally */
+.node-panel-canvas {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+}
+.canvas-container {
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+	min-height: 300px;
+}
+
+/* Node Panel Canvas Styles */
+.node-panel-canvas {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	/* Panel styling will be applied via props */
+	/* Use theme-aware background */
+	background: hsl(var(--background));
+	min-height: 400px;
+}
+
+/* Ensure parent containers don't constrain height */
+:deep(.glassmorphic-main),
+:deep(.glassmorphic-panel),
+:deep([data-panel="center"]) {
+	height: 100vh !important;
+	max-height: 100vh !important;
+	overflow: hidden !important;
+}
+
+.canvas-container {
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	min-height: 400px;
+	background: hsl(var(--background)) !important;
+}
+
+.vue-flow-container {
+	height: 100% !important;
+	width: 100% !important;
+	background: hsl(var(--background)) !important;
+	/* Background uses theme variable */
+}
+
+/* Override any imported CSS backgrounds */
+:deep(.vue-flow-container) {
+	background: hsl(var(--background)) !important;
+}
+
+/* Enhanced Node Styles */
+.enhanced-node {
+	background: rgba(var(--color-neutral-rgb), 0.08);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	border-radius: 12px;
+	padding: 16px;
+	min-width: 200px;
+	min-height: 120px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	transition: all 0.2s ease;
+	position: relative;
+}
+
+/* Webview Node Styles */
+.webview-node {
+	border-color: rgba(59, 130, 246, 0.3);
+	min-width: 400px;
+	min-height: 300px;
+}
+
+.webview-node.selected {
+	border-color: rgba(59, 130, 246, 0.6);
+	box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.webview-node .node-header {
+	background: rgba(59, 130, 246, 0.1);
+	border-color: rgba(59, 130, 246, 0.2);
+}
+
+.webview-content {
+	height: 300px;
+	min-height: 200px;
+}
+
+/* Webview URL Section Styles */
+.webview-url-section {
+	margin-bottom: 12px;
+	padding: 8px;
+	background: rgba(59, 130, 246, 0.05);
+	border: 1px solid rgba(59, 130, 246, 0.1);
+	border-radius: 8px;
+}
+
+.url-input-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.url-icon {
+	width: 16px;
+	height: 16px;
+	color: rgba(59, 130, 246, 0.7);
+	flex-shrink: 0;
+}
+
+.url-input {
+	flex: 1;
+	padding: 6px 8px;
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(59, 130, 246, 0.3);
+	border-radius: 4px;
+	color: white;
+	font-size: 12px;
+	transition: all 0.2s ease;
+}
+
+.url-input:focus {
+	outline: none;
+	border-color: rgba(59, 130, 246, 0.5);
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.url-input::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.load-url-button {
+	padding: 6px 8px;
+	background: rgba(59, 130, 246, 0.2);
+	border: 1px solid rgba(59, 130, 246, 0.3);
+	border-radius: 4px;
+	color: rgba(59, 130, 246, 0.8);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.load-url-button:hover:not(:disabled) {
+	background: rgba(59, 130, 246, 0.3);
+	border-color: rgba(59, 130, 246, 0.5);
+	color: rgba(59, 130, 246, 1);
+}
+
+.load-url-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.url-mode-toggle {
+	display: flex;
+	gap: 4px;
+}
+
+.mode-button {
+	flex: 1;
+	padding: 4px 8px;
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(59, 130, 246, 0.2);
+	border-radius: 4px;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 11px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+}
+
+.mode-button:hover {
+	background: rgba(59, 130, 246, 0.1);
+	border-color: rgba(59, 130, 246, 0.3);
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.mode-button.active {
+	background: rgba(59, 130, 246, 0.2);
+	border-color: rgba(59, 130, 246, 0.4);
+	color: rgba(59, 130, 246, 1);
+}
+
+/* URL Webview Container */
+.url-webview-container {
+	height: 100%;
+	width: 100%;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.url-webview-iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: white;
+}
+
+/* Webview Actions */
+.webview-actions {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 12px;
+	padding: 8px;
+	background: rgba(59, 130, 246, 0.05);
+	border: 1px solid rgba(59, 130, 246, 0.1);
+	border-radius: 8px;
+}
+
+.webview-action-button {
+	flex: 1;
+	padding: 6px 12px;
+	background: rgba(59, 130, 246, 0.1);
+	border: 1px solid rgba(59, 130, 246, 0.3);
+	border-radius: 6px;
+	color: rgba(59, 130, 246, 0.9);
+	font-size: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+}
+
+.webview-action-button:hover:not(:disabled) {
+	background: rgba(59, 130, 246, 0.2);
+	border-color: rgba(59, 130, 246, 0.5);
+	color: rgba(59, 130, 246, 1);
+	transform: translateY(-1px);
+}
+
+.webview-action-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Webview Display */
+.webview-display {
+	height: 300px;
+	min-height: 200px;
+	position: relative;
+}
+
+.no-url-state {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.webview-iframe-container {
+	height: 100%;
+	width: 100%;
+	border-radius: 4px;
+	overflow: hidden;
+	position: relative;
+}
+
+.webview-iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: white;
+}
+
+.loading-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	z-index: 10;
+}
+
+.loading-spinner {
+	width: 24px;
+	height: 24px;
+	border: 2px solid rgba(59, 130, 246, 0.3);
+	border-top: 2px solid rgba(59, 130, 246, 1);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+.loading-text {
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 12px;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.enhanced-node:hover {
+	background: rgba(var(--color-neutral-rgb), 0.12);
+	border-color: rgba(var(--color-primary-rgb), 0.3);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.node-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.node-details {
+	margin-bottom: 12px;
+}
+
+.detail-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4px;
+}
+
+.detail-label {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.6);
+	font-weight: 500;
+}
+
+.detail-value {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.8);
+	font-weight: 600;
+}
+
+.node-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.configure-event-button,
+.configure-command-button,
+.configure-view-button,
+.configure-git-action-button,
+.configure-transport-button,
+.define-template-button,
+.configure-template-button,
+.setup-template-button,
+.configure-webview-button,
+.configure-code-editor-button,
+.connect-github-button,
+.create-file-button,
+.preview-file-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 12px;
+	background: rgba(var(--color-primary-rgb), 0.2);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+	border-radius: 8px;
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 12px;
+	font-weight: 600;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.configure-event-button:hover,
+.configure-command-button:hover,
+.configure-view-button:hover,
+.configure-git-action-button:hover,
+.configure-transport-button:hover,
+.define-template-button:hover,
+.configure-template-button:hover,
+.setup-template-button:hover,
+.configure-webview-button:hover,
+.configure-code-editor-button:hover,
+.connect-github-button:hover,
+.create-file-button:hover,
+.preview-file-button:hover {
+	background: rgba(var(--color-primary-rgb), 0.3);
+	border-color: rgba(var(--color-primary-rgb), 0.5);
+	color: white;
+	transform: translateY(-1px);
+}
+
+.configured-indicator {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 12px;
+	background: rgba(34, 197, 94, 0.2);
+	border: 1px solid rgba(34, 197, 94, 0.3);
+	border-radius: 8px;
+	color: #22c55e;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* Connection Handles */
+.connection-handle {
+	width: 8px;
+	height: 8px;
+	background: rgba(var(--color-primary-rgb), 0.8);
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	transition: all 0.2s ease;
+}
+
+.connection-handle:hover {
+	background: rgba(var(--color-primary-rgb), 1);
+	transform: scale(1.2);
+}
+
+/* Status Classes */
+.status-active {
+	color: #22c55e;
+}
+
+.status-inactive {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.status-error {
+	color: #ef4444;
+}
+
+.status-warning {
+	color: #f59e0b;
+}
+
+/* JSON Footer */
+.json-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 300px;
+	background: rgba(var(--color-neutral-rgb), 0.12);
+	backdrop-filter: blur(24px);
+	border-top: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	border-radius: 12px 12px 0 0;
+	overflow: hidden;
+	z-index: 20;
+}
+
+.json-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 20px;
+	border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.1);
+}
+
+.json-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+	font-weight: 700;
+	color: white;
+}
+
+.json-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.json-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: rgba(var(--color-neutral-rgb), 0.1);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	border-radius: 8px;
+	color: rgba(255, 255, 255, 0.8);
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.json-button:hover {
+	background: rgba(var(--color-primary-rgb), 0.2);
+	border-color: rgba(var(--color-primary-rgb), 0.4);
+	color: white;
+	transform: translateY(-1px);
+}
+
+.json-content {
+	padding: 20px;
+	height: calc(100% - 80px);
+	overflow: auto;
+}
+
+.json-output {
+	font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+	font-size: 12px;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.9);
+	background: rgba(0, 0, 0, 0.2);
+	padding: 16px;
+	border-radius: 8px;
+	border: 1px solid rgba(var(--color-primary-rgb), 0.1);
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+/* Dark Minimap */
+:deep(.vue-flow__minimap) {
+	background: rgba(var(--color-neutral-rgb), 0.1);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	border-radius: 8px;
+}
+
+:deep(.vue-flow__minimap-mask) {
+	fill: rgba(59, 130, 246, 0.2);
+	stroke: rgba(59, 130, 246, 0.6);
+	stroke-width: 2;
+}
+
+:deep(.vue-flow__minimap-node) {
+	fill: rgba(var(--color-primary-rgb), 0.6);
+	stroke: rgba(var(--color-primary-rgb), 0.8);
+	stroke-width: 1;
+}
+
+/* Controls */
+:deep(.vue-flow__controls) {
+	background: rgba(var(--color-neutral-rgb), 0.08);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	border-radius: 8px;
+}
+
+:deep(.vue-flow__controls-button) {
+	background: rgba(var(--color-neutral-rgb), 0.1);
+	border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+	color: rgba(255, 255, 255, 0.8);
+	transition: all 0.2s ease;
+}
+
+:deep(.vue-flow__controls-button:hover) {
+	background: rgba(var(--color-primary-rgb), 0.2);
+	border-color: rgba(var(--color-primary-rgb), 0.4);
+	color: white;
+}
+
+/* Background Pattern */
+:deep(.vue-flow__background) {
+	opacity: 0.3;
+}
+
+/* Node Selection */
+:deep(.vue-flow__node.selected) {
+	box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.8);
+}
+
+/* Edge Styles */
+:deep(.vue-flow__edge) {
+	stroke: rgba(var(--color-primary-rgb), 0.6);
+	stroke-width: 2;
+}
+
+:deep(.vue-flow__edge.selected) {
+	stroke: rgba(var(--color-primary-rgb), 1);
+	stroke-width: 3;
+}
+
+:deep(.vue-flow__edge-path) {
+	stroke: rgba(var(--color-primary-rgb), 0.6);
+	stroke-width: 2;
+}
+
+:deep(.vue-flow__edge.selected .vue-flow__edge-path) {
+	stroke: rgba(var(--color-primary-rgb), 1);
+	stroke-width: 3;
+}
+
+/* Edge Labels */
+:deep(.vue-flow__edge-text) {
+	fill: rgba(255, 255, 255, 0.95);
+	font-size: 11px;
+	font-weight: 600;
+	font-family: Inter, system-ui, sans-serif;
+	letter-spacing: 0.02em;
+}
+
+:deep(.vue-flow__edge-textbg) {
+	fill: rgba(0, 0, 0, 0.85);
+	rx: 6;
+	ry: 6;
+}
+
+:deep(.vue-flow__edge.selected .vue-flow__edge-text) {
+	fill: rgba(255, 255, 255, 1);
+}
+
+/* Edge Markers */
+:deep(.vue-flow__arrowhead) {
+	fill: rgba(var(--color-primary-rgb), 0.6);
+}
+
+:deep(.vue-flow__edge.selected .vue-flow__arrowhead) {
+	fill: rgba(var(--color-primary-rgb), 1);
+}
+
+/* Connection Animation Keyframes */
+@keyframes particleFlow {
+	0% { 
+		stroke-dashoffset: 0;
+		opacity: 0.8;
+	}
+	100% { 
+		stroke-dashoffset: -26;
+		opacity: 1;
+	}
+}
+
+@keyframes beamPulse {
+	0% { 
+		stroke-dashoffset: 0;
+	}
+	100% { 
+		stroke-dashoffset: -66;
+	}
+}
+
+@keyframes lightGlow {
+	0% { 
+		stroke-dashoffset: 0;
+	}
+	100% { 
+		stroke-dashoffset: -32;
+	}
+}
+
+@keyframes laserScan {
+	0% { 
+		stroke-dashoffset: 0;
+	}
+	100% { 
+		stroke-dashoffset: -84;
+	}
+}
+
+@keyframes pulseFlow {
+	0%, 100% { 
+		stroke-dashoffset: 0;
+		opacity: 0.7;
+	}
+	50% { 
+		opacity: 1;
+	}
+}
+
+@keyframes waveFlow {
+	0% { 
+		stroke-dashoffset: 0;
+	}
+	100% { 
+		stroke-dashoffset: -32;
+	}
+}
+
+@keyframes glowFlow {
+	0% { 
+		stroke-dashoffset: 0;
+	}
+	100% { 
+		stroke-dashoffset: -32;
+	}
+}

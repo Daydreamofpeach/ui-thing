@@ -5,12 +5,12 @@ description: On this page you will find different ways in which you can style th
 
 ## Style One
 
-:BlockShowcase{blockPath="Blog/Section/BlockBlogSection1" component="BlockBlogSection1" }
+<BlockBlogSection1 />
 
 ## Style Two
 
-:BlockShowcase{blockPath="Blog/Section/BlockBlogSection2" component="BlockBlogSection2" }
+<BlockBlogSection2 />
 
 ## Style Three
 
-:BlockShowcase{blockPath="Blog/Section/BlockBlogSection3" component="BlockBlogSection3" }
+<BlockBlogSection3 />

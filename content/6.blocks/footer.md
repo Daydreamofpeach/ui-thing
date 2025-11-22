@@ -5,32 +5,32 @@ description: On this page you will find different ways in which you can style th
 
 ## Style One
 
-:BlockShowcase{blockPath="Footer/BlockFooter1" component="BlockFooter1" }
+<BlockFooter1 />
 
 ## Style Two
 
-:BlockShowcase{blockPath="Footer/BlockFooter2" component="BlockFooter2" }
+<BlockFooter2 />
 
 ## Style Three
 
-:BlockShowcase{blockPath="Footer/BlockFooter3" component="BlockFooter3" }
+<BlockFooter3 />
 
 ## Style Four
 
-:BlockShowcase{blockPath="Footer/BlockFooter4" component="BlockFooter4" }
+<BlockFooter4 />
 
 ## Style Five
 
-:BlockShowcase{blockPath="Footer/BlockFooter5" component="BlockFooter5" }
+<BlockFooter5 />
 
 ## Style Six
 
-:BlockShowcase{blockPath="Footer/BlockFooter6" component="BlockFooter6" }
+<BlockFooter6 />
 
 ## Style Seven
 
-:BlockShowcase{blockPath="Footer/BlockFooter7" component="BlockFooter7" iframeHeight="200px" }
+<BlockFooter7 style="height: 200px" />
 
 ## Style Eight
 
-:BlockShowcase{blockPath="Footer/BlockFooter8" component="BlockFooter8" iframeHeight="300px" }
+<BlockFooter8 style="height: 300px" />

@@ -1,4 +1,4 @@
-# UI Thing
+# buildit
 
 A modern set of Nuxt components built with Reka UI & TailwindCSS
 
@@ -12,7 +12,7 @@ Inspired by [shadcn/ui](https://ui.shadcn.com/) & [shadcn-vue](https://www.shadc
 
 ## 🚀 Quick Start
 
-Initialize UI Thing in your Nuxt project with one command:
+Initialize BuildItui in your Nuxt project with one command:
 
 ```bash
 npx ui-thing@latest init

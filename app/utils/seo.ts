@@ -1,7 +1,7 @@
-export const SITE_NAME = "UI Thing";
-export const SITE_TITLE = "UI Thing | TailwindCSS Component Library for Nuxt";
+export const SITE_NAME = "buildit";
+export const SITE_TITLE = "buildit | TailwindCSS Component Library for Nuxt";
 export const SITE_DESCRIPTION =
-  "UI Thing is a flexible and modern component library for Nuxt, offering reusable UI components styled with TailwindCSS and inspired by shadcn/ui. Simplify your development process with easy-to-integrate components and a powerful CLI tool.";
+  "buildit is a flexible and modern component library for Nuxt, offering reusable UI components styled with TailwindCSS and inspired by shadcn/ui. Simplify your development process with easy-to-integrate components and a powerful CLI tool.";
 export const SITE_LANG = "en";
 export const SITE_THEME_COLOR = "#5A18D3";
 export const SITE_KEYWORDS = [

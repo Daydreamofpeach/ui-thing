@@ -36,7 +36,7 @@ npx ui-thing@latest add separator
 <template>
   <div class="mx-auto max-w-fit">
     <div class="gap-y-1">
-      <h4 class="text-sm leading-none font-semibold">UI Thing</h4>
+      <h4 class="text-sm leading-none font-semibold">buildit</h4>
       <p class="text-sm text-muted-foreground">An open-source UI component library for Nuxt.</p>
     </div>
     <UiSeparator class="my-4" />

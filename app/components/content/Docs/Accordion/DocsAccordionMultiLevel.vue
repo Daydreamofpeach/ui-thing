@@ -2,7 +2,7 @@
   const items = [
     {
       id: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       collapsibles: [
         {
           title: "What about performance?",
@@ -32,7 +32,7 @@
     },
     {
       id: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       collapsibles: [
         {
           title: "What's the bundle size impact?",

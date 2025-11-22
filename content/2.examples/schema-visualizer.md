@@ -5,5 +5,4 @@ layout: examples
 label: New
 ---
 
-::Page-Ex-Schema-Visualizer
-::
+<SchemaVisualizerExampleRegistry />

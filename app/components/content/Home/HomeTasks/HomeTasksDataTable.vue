@@ -9,10 +9,20 @@
     getSortedRowModel,
     useVueTable,
   } from "@tanstack/vue-table";
+  import UiContextMenu from "~/components/Ui/ContextMenu/ContextMenu.vue";
+  import UiContextMenuTrigger from "~/components/Ui/ContextMenu/Trigger.vue";
+  import UiContextMenuContent from "~/components/Ui/ContextMenu/Content.vue";
+  import UiContextMenuGroup from "~/components/Ui/ContextMenu/Group.vue";
+  import UiContextMenuCheckboxItem from "~/components/Ui/ContextMenu/CheckboxItem.vue";
+  import UiContextMenuLabel from "~/components/Ui/ContextMenu/Label.vue";
+  import UiContextMenuSeparator from "~/components/Ui/ContextMenu/Separator.vue";
+  import UiAvatar from "~/components/Ui/Avatar/Avatar.vue";
+  import { useSelectedOrganisationId } from "~/composables/useSelectedOrganisationId";
+  import { useOrganizationMembers } from "~/composables/useOrganizationMembers";
+  import { useTasks } from "~/composables/useTasks";
   import {
     HomeTasksDataTableColumnHeader,
     HomeTasksDataTableRowAction,
-    UiBadge,
     UiCheckbox,
   } from "#components";
   import type {
@@ -55,21 +65,11 @@
       enableHiding: false,
     },
     {
-      accessorKey: "id",
-      header: ({ column }) => h(HomeTasksDataTableColumnHeader, { column, title: "Task" }),
-      cell: ({ row }) => h("div", { class: "w-20" }, row.getValue("id")),
-      enableSorting: false,
-      enableHiding: false,
-    },
-    {
       accessorKey: "title",
       header: ({ column }) => h(HomeTasksDataTableColumnHeader, { column, title: "Title" }),
 
       cell: ({ row }) => {
-        const label = homeTasksLabels.find((label) => label.value === row.original.label);
-
         return h("div", { class: "flex space-x-2" }, [
-          label ? h(UiBadge, { variant: "outline" }, () => label.label) : null,
           h("span", { class: "max-w-[500px] truncate font-medium" }, row.getValue("title")),
         ]);
       },
@@ -151,6 +151,31 @@
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  // Organisation members for assignment
+  const selectedOrgId = useSelectedOrganisationId();
+  const { members: orgMembers } = useOrganizationMembers(selectedOrgId);
+  const { updateTask, loadTasks } = useTasks();
+
+  function memberKey(m: any) {
+    return m?.id ?? m?.email ?? m?.name ?? "";
+  }
+  function isMemberAssigned(row: any, member: any) {
+    const owners: any[] = Array.isArray((row.original as any)?.owners) ? (row.original as any).owners : [];
+    const key = String(memberKey(member));
+    return owners.some((o: any) => String(o) === key);
+  }
+  async function toggleMemberAssignment(row: any, member: any) {
+    const taskId = String((row.original as any)?.id || "");
+    if (!taskId) return;
+    const currentOwners: string[] = Array.isArray((row.original as any)?.owners) ? [...(row.original as any).owners] : [];
+    const key = String(memberKey(member));
+    const idx = currentOwners.findIndex((o) => String(o) === key);
+    if (idx >= 0) currentOwners.splice(idx, 1);
+    else currentOwners.push(key);
+    await updateTask(taskId, { owners: currentOwners } as any);
+    await loadTasks();
+  }
 </script>
 
 <template>
@@ -171,15 +196,41 @@
         </UiTableHeader>
         <UiTableBody>
           <template v-if="table.getRowModel().rows?.length">
-            <UiTableRow
-              v-for="row in table.getRowModel().rows"
-              :key="row.id"
-              :data-state="row.getIsSelected() && 'selected'"
-            >
-              <UiTableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
-                <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
-              </UiTableCell>
-            </UiTableRow>
+            <UiContextMenu v-for="row in table.getRowModel().rows" :key="row.id">
+              <UiContextMenuTrigger as-child>
+                <UiTableRow :data-state="row.getIsSelected() && 'selected'">
+                  <UiTableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+                    <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                  </UiTableCell>
+                </UiTableRow>
+              </UiContextMenuTrigger>
+              <UiContextMenuContent class="w-64">
+                <UiContextMenuLabel class="my-1" label="Assign to member(s)" />
+                <UiContextMenuSeparator />
+                <UiContextMenuGroup>
+                  <UiContextMenuCheckboxItem
+                    v-for="member in orgMembers"
+                    :key="member.id || member.email"
+                    inset
+                    class="mb-1"
+                    :model-value="isMemberAssigned(row, member)"
+                    @select="(e) => e.preventDefault()"
+                    @click="toggleMemberAssignment(row, member)"
+                  >
+                    <div class="flex items-center gap-3">
+                      <UiAvatar class="h-6 w-6" :alt="member.name || member.email">
+                        <template #fallback>
+                          <span class="text-[10px]">
+                            {{ (member.name || member.email || '').charAt(0).toUpperCase() }}
+                          </span>
+                        </template>
+                      </UiAvatar>
+                      <span class="truncate">{{ member.name || member.email }}</span>
+                    </div>
+                  </UiContextMenuCheckboxItem>
+                </UiContextMenuGroup>
+              </UiContextMenuContent>
+            </UiContextMenu>
           </template>
 
           <UiTableRow v-else>

@@ -10,7 +10,7 @@
             <Icon name="lucide:user" mode="svg" />
           </UiFancyIcon>
           <UiDialogHeader class="mb-6">
-            <UiDialogTitle class="sm:text-center">Sign up UI Thing</UiDialogTitle>
+            <UiDialogTitle class="sm:text-center">Sign up buildit</UiDialogTitle>
             <UiDialogDescription class="sm:text-center">
               We just need a few details to get you started.
             </UiDialogDescription>

@@ -243,9 +243,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -257,7 +257,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -310,9 +310,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -324,7 +324,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -379,9 +379,9 @@ To use these examples you will have to copy the code and adjust it for your own 
       id: "1",
       icon: "lucide:command",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -395,7 +395,7 @@ To use these examples you will have to copy the code and adjust it for your own 
       id: "3",
       icon: "lucide:zap",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -602,9 +602,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -616,7 +616,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -671,9 +671,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -685,7 +685,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -744,9 +744,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -758,7 +758,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -813,9 +813,9 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "1",
       value: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       content:
-        "UI Thing focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+        "buildit focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
     },
     {
       id: "2",
@@ -827,7 +827,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     {
       id: "3",
       value: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       content:
         "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
     },
@@ -885,7 +885,7 @@ To use these examples you will have to copy the code and adjust it for your own 
   const items = [
     {
       id: "1",
-      title: "What makes UI Thing different?",
+      title: "What makes buildit different?",
       collapsibles: [
         {
           title: "What about performance?",
@@ -915,7 +915,7 @@ To use these examples you will have to copy the code and adjust it for your own 
     },
     {
       id: "3",
-      title: "Is UI Thing optimized for performance?",
+      title: "Is buildit optimized for performance?",
       collapsibles: [
         {
           title: "What's the bundle size impact?",

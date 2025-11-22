@@ -1,0 +1,369 @@
+{
+  "login": {
+    "success": {
+      "title": "Welcome Back!",
+      "message": "You've successfully signed in to your account.",
+      "action": "Redirecting to your dashboard..."
+    },
+    "errors": {
+      "invalid credentials": {
+        "title": "Sign In Failed",
+        "message": "The email or password you entered is incorrect. Please check your credentials and try again.",
+        "solutions": [
+          "Double-check your email address for typos",
+          "Make sure Caps Lock is off when entering your password",
+          "Try resetting your password if you're unsure"
+        ]
+      },
+      "account locked": {
+        "title": "Account Temporarily Locked",
+        "message": "Your account has been temporarily locked due to multiple failed sign-in attempts.",
+        "solutions": [
+          "Wait 15 minutes before trying again",
+          "Use the 'Forgot Password' option to reset your password",
+          "Contact support if the issue persists"
+        ]
+      },
+      "email not verified": {
+        "title": "Email Not Verified",
+        "message": "Please verify your email address before signing in. Check your inbox for a verification link.",
+        "solutions": [
+          "Check your email inbox (and spam folder)",
+          "Click the verification link in the email",
+          "Request a new verification email if needed"
+        ]
+      },
+      "user not found": {
+        "title": "Account Not Found",
+        "message": "We couldn't find an account with that email address. Please check your email or create a new account.",
+        "solutions": [
+          "Double-check your email address",
+          "Try creating a new account if you don't have one",
+          "Contact support if you believe this is an error"
+        ]
+      },
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. We're working to fix this issue.",
+        "solutions": [
+          "Try refreshing the page",
+          "Clear your browser cache",
+          "Contact support if the problem persists"
+        ]
+      }
+    }
+  },
+  "signup": {
+    "success": {
+      "title": "Account Created Successfully!",
+      "message": "Welcome to Buildit! Your account has been created and you're now signed in.",
+      "action": "Redirecting to your dashboard..."
+    },
+    "email verification required": {
+      "title": "Check Your Email",
+      "message": "We've sent a verification link to your email address. Please click the link to activate your account.",
+      "action": "You can sign in once your email is verified.",
+      "solutions": [
+        "Check your email inbox (and spam folder)",
+        "Click the verification link in the email",
+        "The link will expire in 24 hours"
+      ]
+    },
+    "errors": {
+      "email already exists": {
+        "title": "Email Already Registered",
+        "message": "An account with this email address already exists. Please sign in instead or use a different email.",
+        "solutions": [
+          "Try signing in with your existing account",
+          "Use a different email address",
+          "Use the 'Forgot Password' option if you can't remember your password"
+        ]
+      },
+      "weak password": {
+        "title": "Password Too Weak",
+        "message": "Your password doesn't meet our security requirements. Please choose a stronger password.",
+        "solutions": [
+          "Use at least 8 characters",
+          "Include uppercase and lowercase letters",
+          "Add numbers and special characters",
+          "Avoid common words or personal information"
+        ]
+      },
+      "invalid email": {
+        "title": "Invalid Email Address",
+        "message": "Please enter a valid email address. The format you entered is not recognized.",
+        "solutions": [
+          "Check for typos in your email address",
+          "Make sure you're using a valid email format (e.g., user@example.com)",
+          "Try a different email address"
+        ]
+      },
+      "name required": {
+        "title": "Name Required",
+        "message": "Please provide your full name to create your account.",
+        "solutions": [
+          "Enter your first and last name",
+          "Make sure the name field is not empty",
+          "Use your real name as it will appear on your account"
+        ]
+      },
+      "validation error": {
+        "title": "Account Creation Failed",
+        "message": "We couldn't create your account due to validation issues. Please check your information and try again.",
+        "solutions": [
+          "Make sure all required fields are filled out",
+          "Check that your email address is valid",
+          "Ensure your password meets security requirements",
+          "Try using a different email address if the current one is already registered"
+        ]
+      },
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "rate limited": {
+        "title": "Too Many Attempts",
+        "message": "You've made too many signup attempts. Please wait a few minutes before trying again.",
+        "solutions": [
+          "Wait 5-10 minutes before trying again",
+          "Check your email for any verification messages",
+          "Contact support if you need immediate assistance"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred while creating your account. We're working to fix this issue.",
+        "solutions": [
+          "Try creating your account again",
+          "Clear your browser cache and cookies",
+          "Contact our support team for assistance"
+        ]
+      }
+    }
+  },
+  "password_reset": {
+    "success": {
+      "title": "Reset Link Sent",
+      "message": "We've sent a password reset link to your email address. Please check your inbox.",
+      "action": "The link will expire in 1 hour for security reasons."
+    },
+    "errors": {
+      "email not found": {
+        "title": "Email Not Found",
+        "message": "We couldn't find an account with that email address. Please check your email or create a new account.",
+        "solutions": [
+          "Double-check your email address",
+          "Try creating a new account if you don't have one",
+          "Contact support if you believe this is an error"
+        ]
+      },
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. We're working to fix this issue.",
+        "solutions": [
+          "Try again in a few minutes",
+          "Clear your browser cache",
+          "Contact support if the problem persists"
+        ]
+      }
+    }
+  },
+  "email_verification": {
+    "success": {
+      "title": "Email Verified!",
+      "message": "Your email address has been successfully verified. You can now access all features.",
+      "action": "Redirecting to your dashboard..."
+    },
+    "errors": {
+      "invalid token": {
+        "title": "Invalid Verification Link",
+        "message": "This verification link is invalid or has expired. Please request a new one.",
+        "solutions": [
+          "Request a new verification email",
+          "Check your email for the latest verification link",
+          "Make sure you're using the most recent email we sent"
+        ]
+      },
+      "expired token": {
+        "title": "Verification Link Expired",
+        "message": "This verification link has expired. Please request a new one.",
+        "solutions": [
+          "Request a new verification email",
+          "Check your email for the latest verification link",
+          "Verification links expire after 24 hours"
+        ]
+      },
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. We're working to fix this issue.",
+        "solutions": [
+          "Try again in a few minutes",
+          "Clear your browser cache",
+          "Contact support if the problem persists"
+        ]
+      }
+    }
+  },
+  "invitation": {
+    "success": {
+      "title": "Invitation Accepted!",
+      "message": "Welcome to the team! You've successfully joined the organization.",
+      "action": "Redirecting to your dashboard..."
+    },
+    "errors": {
+      "invalid code": {
+        "title": "Invalid Invitation Code",
+        "message": "The invitation code you entered is invalid or has expired. Please check the code and try again.",
+        "solutions": [
+          "Double-check the invitation code",
+          "Make sure you're using the most recent invitation",
+          "Contact the person who invited you for a new code"
+        ]
+      },
+      "expired code": {
+        "title": "Invitation Expired",
+        "message": "This invitation has expired. Please request a new invitation from the organization.",
+        "solutions": [
+          "Contact the organization administrator",
+          "Request a new invitation",
+          "Invitation codes typically expire after 7 days"
+        ]
+      },
+      "already used": {
+        "title": "Invitation Already Used",
+        "message": "This invitation code has already been used. You may already have access to the organization.",
+        "solutions": [
+          "Try signing in with your existing account",
+          "Contact the organization administrator",
+          "Check if you already have access"
+        ]
+      },
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. We're working to fix this issue.",
+        "solutions": [
+          "Try again in a few minutes",
+          "Clear your browser cache",
+          "Contact support if the problem persists"
+        ]
+      }
+    }
+  },
+  "general": {
+    "errors": {
+      "network error": {
+        "title": "Connection Problem",
+        "message": "We're having trouble connecting to our servers. Please check your internet connection.",
+        "solutions": [
+          "Check your internet connection",
+          "Try refreshing the page",
+          "Wait a few minutes and try again"
+        ]
+      },
+      "server error": {
+        "title": "Service Temporarily Unavailable",
+        "message": "Our servers are experiencing issues. Please try again in a few minutes.",
+        "solutions": [
+          "Wait 5-10 minutes and try again",
+          "Check our status page for updates",
+          "Contact support if the problem continues"
+        ]
+      },
+      "unknown error": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. We're working to fix this issue.",
+        "solutions": [
+          "Try refreshing the page",
+          "Clear your browser cache",
+          "Contact support if the problem persists"
+        ]
+      }
+    }
+  }
+}

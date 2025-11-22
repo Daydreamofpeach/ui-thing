@@ -148,6 +148,74 @@ export const colors = {
       hsl: "hsl(224,71.4%,4.1%)",
     },
   ],
+  solardark: [
+    {
+      scale: 50,
+      hex: "#fefefe",
+      rgb: "rgb(254,254,254)",
+      hsl: "hsl(0,0%,99.6%)",
+    },
+    {
+      scale: 100,
+      hex: "#fefefe",
+      rgb: "rgb(254,254,254)",
+      hsl: "hsl(0,0%,99.6%)",
+    },
+    {
+      scale: 200,
+      hex: "#f5f5f5",
+      rgb: "rgb(245,245,245)",
+      hsl: "hsl(0,0%,96.1%)",
+    },
+    {
+      scale: 300,
+      hex: "#e5e5e5",
+      rgb: "rgb(229,229,229)",
+      hsl: "hsl(0,0%,89.8%)",
+    },
+    {
+      scale: 400,
+      hex: "#d4d4d4",
+      rgb: "rgb(212,212,212)",
+      hsl: "hsl(0,0%,83.1%)",
+    },
+    {
+      scale: 500,
+      hex: "#8e8e8e",
+      rgb: "rgb(142,142,142)",
+      hsl: "hsl(0,0%,55.7%)",
+    },
+    {
+      scale: 600,
+      hex: "#7a7a7a",
+      rgb: "rgb(122,122,122)",
+      hsl: "hsl(0,0%,47.8%)",
+    },
+    {
+      scale: 700,
+      hex: "#636363",
+      rgb: "rgb(99,99,99)",
+      hsl: "hsl(0,0%,38.8%)",
+    },
+    {
+      scale: 800,
+      hex: "#525252",
+      rgb: "rgb(82,82,82)",
+      hsl: "hsl(0,0%,32.2%)",
+    },
+    {
+      scale: 900,
+      hex: "#464646",
+      rgb: "rgb(70,70,70)",
+      hsl: "hsl(0,0%,27.5%)",
+    },
+    {
+      scale: 950,
+      hex: "#262626",
+      rgb: "rgb(38,38,38)",
+      hsl: "hsl(0,0%,14.9%)",
+    },
+  ],
   zinc: [
     {
       scale: 50,
@@ -1556,6 +1624,14 @@ export const colorMapping = {
 } as const;
 
 export type Color =
+  | "matter"
+  | "buildit"
+  | "lucide"
+  | "grove"
+  | "cyberpunk"
+  | "bubblegum"
+  | "midnight"
+  | "solardark"
   | "zinc"
   | "slate"
   | "stone"

@@ -30,7 +30,8 @@
 
   const options = ref<ApexOptions>({
     stroke: { width: 0 },
-    theme: { monochrome: { enabled: true, shadeTo: "dark", color: "#34d399" } },
+    // Colors will use the default from window.Apex which reads from chart-1 through chart-5 CSS variables
+    // Removed monochrome theme to use theme chart colors
     labels: ["January", "February", "March", "April", "May", "June"],
     states: { hover: { filter: { type: "none" } }, active: { filter: { type: "none" } } },
     tooltip: { followCursor: true },

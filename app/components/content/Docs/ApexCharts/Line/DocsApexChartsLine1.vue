@@ -167,7 +167,7 @@
   });
 
   const options = ref<ApexOptions>({
-    colors: ["var(--color-blue-500)"],
+    // Colors will use the default from window.Apex which reads from chart-1 through chart-5 CSS variables
     xaxis: {
       type: "datetime",
       labels: {

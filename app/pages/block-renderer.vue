@@ -37,10 +37,7 @@
     twitterCard: "summary_large_image",
   });
 
-  defineOgImageComponent("UIThing", {
-    title: route?.query?.component || "Blocks",
-    description: "Copy and paste blocks of code into your project.",
-  });
+  // Removed defineOgImageComponent for static generation
 
   const dynamicComponent = shallowRef();
 

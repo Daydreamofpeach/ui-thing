@@ -1,7 +1,8 @@
+
 <template>
   <div
     :class="[
-      toc && toc.links && toc.links.length && !isBlocksPage
+      (toc && toc.links && toc.links.length && !isBlocksPage) || isNodesPage
         ? 'xl:grid-cols-[1fr_250px]'
         : 'xl:grid-cols-1',
     ]"
@@ -15,13 +16,25 @@
       <ContentRenderer v-if="page" :value="page" />
       <DocsFooter />
     </div>
-    <!-- Table of contents for current page -->
+    <!-- Table of contents for current page OR Node categories for nodes page -->
     <ClientOnly>
+      <!-- Node categories sidebar for nodes page -->
       <aside
-        v-if="toc && toc.links && toc.links.length && !isBlocksPage"
+        v-if="isNodesPage"
         class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] border-l xl:block"
       >
-        <UiScrollArea type="auto" class="h-full">
+        <UiScrollArea type="auto" class="h-full bg-background/20">
+          <div class="flex flex-col gap-5 p-5">
+            <NodeCategoriesSidebar />
+          </div>
+        </UiScrollArea>
+      </aside>
+      <!-- Regular TOC sidebar for other pages -->
+      <aside
+        v-else-if="toc && toc.links && toc.links.length && !isBlocksPage"
+        class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] border-l xl:block"
+      >
+        <UiScrollArea type="auto" class="h-full bg-background/20">
           <div class="flex flex-col gap-5 p-5">
             <p class="text-sm font-semibold">On this page</p>
             <DocsToclink :set-active="setActive" :active-id="activeId" :links="toc.links" />
@@ -38,10 +51,13 @@
   import { snakeCase } from "lodash-es";
   import { useActiveScroll } from "vue-use-active-scroll";
   import type { Targets } from "vue-use-active-scroll";
+  import NodeCategoriesSidebar from "~/components/content/Docs/Nodes/NodeCategoriesSidebar.vue";
 
   const route = useRoute();
   const { data: page } = await useAsyncData(snakeCase(route.path), () => {
-    return queryCollection("content").path(route.path).first() || "page";
+    return queryCollection("content").path(route.path).first();
+  }, {
+    server: false
   });
   if (!page.value) {
     throw createError({ statusCode: 404, statusMessage: "Page not found", fatal: true });
@@ -51,20 +67,25 @@
     return page.value?.body?.toc;
   });
 
-  const targets = computed(() =>
-    toc.value?.links?.flatMap(({ id, children = [] }: any) => [
+  // Check if a page starts with `/blocks/` The sidenave will be removed if this is true
+  const isBlocksPage = computed(() => route.path.startsWith("/blocks/"));
+  
+  // Check if this is the nodes documentation page
+  const isNodesPage = computed(() => route.path === "/components/nodes");
+
+  const targets = computed(() => {
+    // Skip TOC logic for nodes page
+    if (isNodesPage.value) return [];
+    return toc.value?.links?.flatMap(({ id, children = [] }: any) => [
       id,
       ...children.map(({ id }: { id: string }) => id),
-    ])
-  );
+    ]) || [];
+  });
 
   const { activeId, setActive } = useActiveScroll(targets as Targets, {
     replaceHash: true,
     overlayHeight: 80,
   });
-
-  // Check if a page starts with `/blocks/` The sidenave will be removed if this is true
-  const isBlocksPage = computed(() => route.path.startsWith("/blocks/"));
 
   useSeoMeta({
     title: page?.value?.title,
@@ -79,10 +100,5 @@
     ogUrl: `${SITE_URL}${route.path}`,
   });
 
-  if (import.meta.server) {
-    defineOgImageComponent("UIThing", {
-      title: page.value?.title,
-      description: page.value?.description,
-    });
-  }
+  // Removed defineOgImageComponent for static generation
 </script>

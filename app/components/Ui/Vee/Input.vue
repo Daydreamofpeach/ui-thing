@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { motion } from "motion-v";
+  import { AnimatePresence, motion } from "motion-v";
 
   const variants = {
     initial: { opacity: 0, y: -2 },

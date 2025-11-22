@@ -1,0 +1,421 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main",
+  "description": "Capabilities for the app window",
+  "windows": [
+    "main",
+    "secondary",
+    "automation-*",
+    "project-details-*"
+  ],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:webview:default",
+    "core:webview:allow-webview-close",
+    "core:webview:allow-set-webview-zoom",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-create-webview-window",
+    "core:webview:allow-internal-toggle-devtools",
+    "core:window:allow-close",
+    "core:menu:default",
+    "core:tray:default",
+    "shell:allow-open",
+    "shell:allow-spawn",
+    "shell:allow-execute",
+    "shell:default",
+    "http:allow-fetch-send",
+    "http:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ]
+        },
+        {
+          "name": "exec-pwsh",
+          "cmd": "pwsh",
+          "args": [
+            "-Command",
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-node",
+          "cmd": "node",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-cmd",
+          "cmd": "cmd",
+          "args": [
+            "/c",
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-powershell",
+          "cmd": "powershell",
+          "args": [
+            "-Command",
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-npm",
+          "cmd": "npm",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-yarn",
+          "cmd": "yarn",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-pnpm",
+          "cmd": "pnpm",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-bun",
+          "cmd": "bun",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ]
+        },
+        {
+          "name": "exec-pwsh",
+          "cmd": "pwsh",
+          "args": [
+            "-Command",
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-powershell",
+          "cmd": "powershell",
+          "args": [
+            "-Command",
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-node",
+          "cmd": "node",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-npm",
+          "cmd": "npm",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-yarn",
+          "cmd": "yarn",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-pnpm",
+          "cmd": "pnpm",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-bun",
+          "cmd": "bun",
+          "args": [
+            {
+              "validator": ".*"
+            }
+          ]
+        },
+        {
+          "name": "exec-cmd",
+          "cmd": "cmd",
+          "args": [
+            "/c",
+            {
+              "validator": ".*"
+            }
+          ]
+        }
+      ]
+    },
+    "notification:default",
+    "os:allow-platform",
+    "os:allow-arch",
+    "os:allow-family",
+    "os:allow-version",
+    "os:allow-locale",
+    "fs:allow-document-read",
+    "fs:allow-document-write",
+    "fs:allow-open",
+    "fs:allow-picture-read",
+    "fs:allow-read",
+    "fs:allow-read-dir",
+    "fs:allow-remove",
+    "fs:allow-rename",
+    "fs:allow-mkdir",
+    "fs:allow-write",
+    "fs:allow-create",
+    "fs:allow-write-file",
+    "fs:allow-write-text-file",
+    "fs:allow-read-file",
+    "fs:allow-exists",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        {
+          "path": "$DOCUMENT"
+        },
+        {
+          "path": "$DOCUMENT/**"
+        },
+        {
+          "path": "$DESKTOP"
+        },
+        {
+          "path": "$DESKTOP/**"
+        },
+        {
+          "path": "$DOWNLOAD"
+        },
+        {
+          "path": "$DOWNLOAD/**"
+        },
+        {
+          "path": "$PICTURE"
+        },
+        {
+          "path": "$PICTURE/**"
+        },
+        {
+          "path": "$MUSIC"
+        },
+        {
+          "path": "$MUSIC/**"
+        },
+        {
+          "path": "$VIDEO"
+        },
+        {
+          "path": "$VIDEO/**"
+        },
+        {
+          "path": "$HOME"
+        },
+        {
+          "path": "$HOME/**"
+        },
+        {
+          "path": "$APPDATA"
+        },
+        {
+          "path": "$APPDATA/**"
+        },
+        {
+          "path": "$LOCALDATA"
+        },
+        {
+          "path": "$LOCALDATA/**"
+        },
+        {
+          "path": "C:\\Users"
+        },
+        {
+          "path": "C:\\Users\\*"
+        },
+        {
+          "path": "C:\\Users\\*\\*"
+        },
+        {
+          "path": "C:\\Users\\*\\*\\BuildCMS"
+        },
+        {
+          "path": "C:\\Users\\*\\*\\BuildCMS\\*"
+        },
+        {
+          "path": "C:\\Users\\*\\*\\BuildCMS\\Content"
+        },
+        {
+          "path": "C:\\Users\\*\\*\\BuildCMS\\Content\\*"
+        },
+        {
+          "path": "./templates"
+        },
+        {
+          "path": "./templates/**"
+        },
+        {
+          "path": "**"
+        }
+      ]
+    },
+    "store:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://*.github.com"
+        },
+        {
+          "url": "https://*.githubusercontent.com"
+        },
+        {
+          "url": "https://*.gitlab.com"
+        },
+        {
+          "url": "https://httpbin.org/get"
+        },
+        {
+          "url": "https://*.bitbucket.org"
+        },
+        {
+          "url": "https://*.builditbuilder.com/*"
+        },
+        {
+          "url": "https://api.dev.builditbuilder.com/static/"
+
+        },
+        {
+          "url": "https://api.dev.builditbuilder.com/*"
+        },
+        {
+          "url": "https://*.notion.so"
+        },
+        {
+          "url": "https://*.notion.com"
+        },
+        {
+          "url": "https://*.atlassian.com"
+        },
+        {
+          "url": "https://*.ngrok.app/*"
+        },
+        {
+          "url": "http://localhost:*"
+        },
+        {
+          "url": "http://127.0.0.1:*"
+        },
+        {
+          "url": "https://127.0.0.1:*"
+        },
+        {
+          "url": "https://localhost:*"
+        },
+        {
+          "url": "https://*.cloudflare.com/*"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/*"
+        },
+        {
+          "url": "https://api.cloudflare.com/*"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/*"
+        },
+        {
+          "url": "https://static.cloudflareinsights.com/*"
+        }
+      ]
+    },
+    "sql:default",
+    "sql:allow-execute",
+    "dialog:default",
+    "opener:default",
+    "opener:allow-default-urls",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "C:\\Users\\*\\AppData\\Local\\Programs\\**"
+        },
+        {
+          "path": "C:\\Program Files\\**"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\**"
+        },
+        {
+          "path": "$APPDATA\\**"
+        },
+        {
+          "path": "$LOCALDATA\\**"
+        }
+      ]
+    },
+    "log:allow-log",
+    "log:default"
+
+  ]
+}

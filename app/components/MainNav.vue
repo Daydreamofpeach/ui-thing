@@ -10,7 +10,7 @@
             @click="mobileNavState = true"
             ><Icon name="heroicons:bars-2" class="size-4" />
           </UiButton>
-          <NuxtLink to="/" class="text-lg font-bold">UI Thing</NuxtLink>
+          <NuxtLink to="/" class="text-lg font-bold">buildit</NuxtLink>
         </div>
         <nav class="hidden items-center space-x-6 text-sm font-medium lg:flex">
           <NuxtLink
@@ -56,10 +56,10 @@
             </UiDropdownMenuContent>
           </UiDropdownMenu>
           <NuxtLink
-            :class="[route.path.startsWith('/colors') ? '!text-primary' : '']"
-            to="/colors"
+            :class="[route.path.startsWith('/style') ? '!text-primary' : '']"
+            to="/style"
             class="text-foreground/60 transition-colors hover:text-foreground"
-            >Colors</NuxtLink
+            >Style</NuxtLink
           >
           <NuxtLink
             :class="[route.path.startsWith('/magic') ? '!text-primary' : '']"
@@ -91,9 +91,12 @@
         </UiButton>
 
         <ThemePopover />
+        <FontSelector />
         <UiButton
-          to="https://github.com/BayBreezy/ui-thing"
+          v-if="githubRepositoryUrl"
+          :to="githubRepositoryUrl"
           target="_blank"
+          rel="noopener noreferrer"
           class="h-9 w-9"
           variant="ghost"
           size="icon"
@@ -129,6 +132,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed, onMounted, ref, watch } from "vue";
+  import { useSelectedOrganisationId } from "~/composables/useSelectedOrganisationId";
+  import { buttClient } from "~/utils/buttClient";
+
   const modes = [
     { icon: "lucide:sun", title: "Light", value: "light" },
     { icon: "lucide:moon", title: "Dark", value: "dark" },
@@ -167,5 +174,64 @@
     { name: "Cards", link: "/examples/cards" },
     { name: "Dashboard", link: "/examples/dashboard" },
     { name: "Schema Visualizer", link: "/examples/schema-visualizer" },
+    { name: "Schema Builder", link: "/schema-builder" },
   ];
+
+  // GitHub integration state
+  const githubRepositoryUrl = ref<string | null>(null);
+  const selectedOrganisationId = useSelectedOrganisationId();
+
+  // Function to get repository URL from integration
+  const getRepositoryUrl = (integration: any): string | null => {
+    return integration.meta?.repository?.html_url
+      || integration.data?.repository?.html_url
+      || integration.data?.repository?.url
+      || integration.meta?.repository?.url
+      || integration.repositoryUrl
+      || null;
+  };
+
+  // Load GitHub integration for the selected organization
+  const loadGitHubIntegration = async () => {
+    if (!selectedOrganisationId.value) {
+      githubRepositoryUrl.value = null;
+      return;
+    }
+
+    try {
+      const orgIntegrations = await buttClient.findIntegrationsByOrganisationId(selectedOrganisationId.value);
+      
+      if (!Array.isArray(orgIntegrations)) {
+        githubRepositoryUrl.value = null;
+        return;
+      }
+
+      // Find connected GitHub integration
+      const githubIntegration = orgIntegrations.find((integration: any) => {
+        const isGitHub = integration.type === "GITHUB" || integration.type === "github";
+        const isConnected = integration.connected === true;
+        return isGitHub && isConnected;
+      });
+
+      if (githubIntegration) {
+        const repoUrl = getRepositoryUrl(githubIntegration);
+        githubRepositoryUrl.value = repoUrl;
+      } else {
+        githubRepositoryUrl.value = null;
+      }
+    } catch (error) {
+      console.error("❌ Failed to load GitHub integration:", error);
+      githubRepositoryUrl.value = null;
+    }
+  };
+
+  // Watch for organization changes
+  watch(selectedOrganisationId, () => {
+    loadGitHubIntegration();
+  }, { immediate: true });
+
+  // Load on mount
+  onMounted(() => {
+    loadGitHubIntegration();
+  });
 </script>

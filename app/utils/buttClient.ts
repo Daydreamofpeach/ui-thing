@@ -34,6 +34,7 @@ export function getButtClient(): ButtClient {
 		// and relative paths like /bapi would try to load from the local file system
 		base = "https://api.dev.builditbuilder.com";
 		console.log("🔧 ButtClient: Tauri DESKTOP detected, using absolute API URL:", base);
+
 	} else if (clientType === ClientType.WEB) {
 		// WEB browser: Use proxy in dev to avoid CORS, absolute URL in production
 		base = isProduction 
